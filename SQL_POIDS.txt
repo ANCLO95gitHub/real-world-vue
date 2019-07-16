@@ -1,0 +1,59 @@
+localhost:8080/TheAdmin
+
+
+  INSERT INTO [dbo].[PoidsMetaux]
+           ([NomMB]
+           ,[DiminutifMB]
+           ,[NomForme]
+           ,[DiminutifForme]
+           ,[ThickDiam]
+           ,[OptionX]
+           ,[OptionY]
+           ,[OptionZ]
+           ,[Grade]
+           ,[PoidsEnLivre]
+           ,[EnLecture])
+     VALUES
+           (<NomMB, varchar(50),>
+           ,<DiminutifMB, varchar(50),>
+           ,<NomForme, varchar(50),>
+           ,<DiminutifForme, varchar(50),>
+           ,<ThickDiam, varchar(50),>
+           ,<OptionX, varchar(50),>
+           ,<OptionY, varchar(50),>
+           ,<OptionZ, varchar(50),>
+           ,<Grade, varchar(50),>
+           ,<PoidsEnLivre, varchar(50),>
+           ,<EnLecture, varchar(1),>)
+GO
+
+localhost:5000/insertpoidsmetaux
+
+ // server.js 
+        bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+        let db = new sqlite3.Database("./database/InvoicingApp.db");
+        let sql = `INSERT INTO users(name,email,company_name,password) VALUES('${
+          req.body.name
+        }','${req.body.email}','${req.body.company_name}','${hash}')`;
+        db.run(sql, function(err) {
+          if (err) {
+            throw err;
+          } else {
+            return res.json({
+              status: true,
+              message: "User Created"
+            });
+          }
+        });
+        db.close();
+      });
+    });
+	
+
+	
+	
+	
+	
+vuejs <input  type="button"  onclick, how to click
+				
+				
