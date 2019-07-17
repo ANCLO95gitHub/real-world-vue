@@ -13,22 +13,11 @@
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>
     </p>
 
-    <!--
-        <nav>
-      <router-link to="/listcart">cart</router-link>
-    </nav>
-      <leDivers />
-        <ListCart />
-    <LeTesting />
-    <TitleInventaire />
-    -->
-    <!--
-    <LeFooter msg="Leclerc Robotique inc."/>
-    -->
     <nav>
       <router-link v-if="1==1" to="/TheAdmin">The Admin</router-link> ||
       <router-link v-if="1==1" to="/TheAdmin2">The Admin2</router-link> ||
       <router-link to="/leDivers">Divers</router-link> |
+      <router-link to="/Board">The Board</router-link> |
     </nav>
 pppppp    bindLaSession={{bindLaSession}}
   </div>
@@ -38,8 +27,8 @@ pppppp    bindLaSession={{bindLaSession}}
 //import LeHeader from "@/components/LeHeader.vue";
 import ListeInventaire from "@/components/ListeInventaire";
 //import LeFooter from "@/components/LeFooter.vue";
-//import ListCart from "@/components/ListCart.vue";
 import leDivers from "@/components/divers.vue";
+import Board from "@/components/Board.vue";
 // import LeTesting from "@/components/Testing.vue";
 // import TitleInventaire from '@/components/TitleInventaire.vue';
 // LeHeader, LeFooter,  ListCart, LeTesting,  TitleInventaire
@@ -48,7 +37,7 @@ export default {
   data () {
     return { vlaSession: 'zzz' };
   },
-  components: { ListeInventaire, leDivers },
+  components: { ListeInventaire, leDivers, Board },
   props: {
     msg: String,
     bindLaSession: String
@@ -57,6 +46,9 @@ export default {
     updateTitle( upTitle ){
       //alert(upTitle);
       this.vLaSession = upTitle;
+    },
+    scrollToTop() {
+      window.scrollTo(0,0);
     }
   },
   computed: {
@@ -67,6 +59,8 @@ export default {
   async created() {
     console.log('async created() ');
     this.vlaSession = 'apres HOME, je viens de HelloWorld';
+    window.scrollTo(0,0);
+    this.scrollToTop();
   }
 };
 </script>

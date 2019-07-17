@@ -43,8 +43,7 @@ app.use(cookieSession({
 }));
 //initialize passport
 app.use(passport.initialize());
-app.use(passport.session());
-
+app.use(passport.session() );
 
 /*d
 app.get('/', function (req, res) {

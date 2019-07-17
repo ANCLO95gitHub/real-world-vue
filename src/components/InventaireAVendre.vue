@@ -1,8 +1,8 @@
 <template>
-  <div class="list">
+  <div class="list" v-theme="'wide'">
     <table class="customTable">
       <tbody>
-        <tr>
+        <tr v-rainbow>
           <td class="cimg" >
             <img :src="getPic(placeholder.DiminutifMB, placeholder.DiminutifForme)" alt=".."/>
           </td>
@@ -27,7 +27,7 @@
           </td>
           <td v-else width="90px" style="border:0px;"></td>
 
-          <td v-if="placeholder.ID>0" width="50px">
+          <td v-if="placeholder.ID>0" width="50px" v-rainbow>
             <label  style="min-width:110px;max-width:110px;border: 1px solid grey" for="placeholder.NomForme">
               {{placeholder.NomForme}}
             </label>
@@ -181,7 +181,7 @@ export default {
      }
   },
   created(){
-    window.scrollTo(0,document.body.scrollHeight);
+    //window.scrollTo(0,document.body.scrollHeight);
   },
   props: ["placeholder"]
 };
@@ -190,7 +190,6 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/typography.scss";
 @import "../styles/color.scss";
-
 
 .flex-container {
   display: flex;

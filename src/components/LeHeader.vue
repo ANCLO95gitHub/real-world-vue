@@ -43,7 +43,6 @@ export default {
   width: 100%;
   height: 140px;
   background-color: #475;
-  overflow: scroll;
 }
 .leCart {
   directon: rtl;

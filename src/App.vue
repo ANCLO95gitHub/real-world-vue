@@ -10,8 +10,11 @@
       <div v-if="loggedIn">
         <router-link to="/logout">Logout</router-link> |
       </div>
-      <router-link to="/ListCart">ListCart</router-link>
-
+      <router-link to="/ListCart">ListCart</router-link> |
+      <router-link to="/Testing">Testing</router-link>
+      <div>
+        <router-link to="/Board">The Board</router-link> |
+      </div>
     </div>
     <!-- -->
     <router-view />
@@ -33,7 +36,7 @@ export default {
     }
   },
   mounted() {
-    if(!this.authenticated) {
+    if (!this.authenticated) {
       this.$router.replace({ name: 'home' })
     }
   },
@@ -45,8 +48,8 @@ export default {
       this.authenticated = false;
     }
   },
-  computed:{
-    loggedIn(){
+  computed: {
+    loggedIn() {
       return this.$store.getters.loggedIn
     }
   }
@@ -55,10 +58,10 @@ export default {
 
 <style>
 body {
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 }
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

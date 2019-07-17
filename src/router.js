@@ -6,11 +6,13 @@ import TheAdmin from '@/components/TheAdmin.vue';
 import TheAdmin2 from '@/components/TheAdmin2.vue';
 import ListCart from '@/components/ListCart.vue';
 
-import leDivers from "@/components/divers.vue";
+import leDivers from '@/components/divers.vue';
+import Board from '@/components/Board.vue';
 
 Vue.use(Router);
 
 export default new Router({
+
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -39,6 +41,10 @@ export default new Router({
     { path: "/ListCart",
       name: "ListCart",
       component: ListCart
+    },
+    { path: "/Board",
+      name: "Board",
+      component: Board
     },
     { path: "/login",
       name: "login",

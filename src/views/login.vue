@@ -36,13 +36,13 @@ export default {
     login() {
       if(this.input.username !== "" && this.input.password !== "") {
         if(this.input.username === this.$parent.mockAccount.username && this.input.password === this.$parent.mockAccount.password) {
-          this.$emit("authenticated", true);
-          this.$router.replace({ name: "secure" });
+          this.$emit('authenticated', true);
+          this.$router.replace({ name: 'secure' });
         } else {
-          console.log("The username and / or password is incorrect");
+          console.log('The username and / or password is incorrect');
         }
       } else {
-        console.log("A username and password must be present");
+        console.log('A username and password must be present');
       }
       /// OR
       /***
@@ -61,8 +61,8 @@ export default {
 <style scoped>
 #login {
   width: 500px;
-  border: 3px solid #CCCCCC;
-  background-color: #FFFFFF;
+  border: 3px solid #cccccc;
+  background-color: #ffffff;
   margin: auto;
   margin-top: 100px;
   padding: 20px;

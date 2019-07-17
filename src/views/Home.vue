@@ -6,13 +6,14 @@
     <HelloWorld msg="Bienvenue à L. R. Métal: App  (418) 878-0230"  v-bind:bindLaSession="laSession" />
 
     <LeFooter msg="Une Entreprise de HOME inc."/>
+
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-import LeFooter from "@/components/LeFooter.vue";
+import HelloWorld from '@/components/HelloWorld.vue';
+import LeFooter from '@/components/LeFooter.vue';
 
 export default {
   name: "home",
@@ -20,7 +21,10 @@ export default {
     return { laSession: 'Je viens de HOME'
     }
   },
-  components: { 'HelloWorld':HelloWorld, 'LeFooter':LeFooter }
+  created(){
+    window.scrollTo(0, document.body.scrollHeight);
+  },
+  components: { 'HelloWorld':HelloWorld, 'LeFooter':LeFooter}
 };
 </script>
 <style scoped>

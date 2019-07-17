@@ -8,7 +8,10 @@ import Login from '@/views/login.vue'
 import TheAdmin from '@/components/TheAdmin.vue';
 import TheAdmin2 from '@/components/TheAdmin2.vue';
 import ListCart from '@/components/ListCart.vue';
-import leDivers from "@/components/divers.vue";
+import Board from '@/components/Board.vue';
+
+import leDivers from '@/components/divers.vue';
+import Testing from '@/components/Testing.vue';
 
 import('../../node_modules/vuetify/dist/vuetify.min.css');
 
@@ -40,9 +43,17 @@ export default new Router({
       name: "TheAdmin2",
       component: TheAdmin2
     },
-    { path: "/ListCart",
-      name: "ListCart",
+    { path: '/ListCart',
+      name: 'ListCart',
       component: ListCart
+    },
+    { path: "/Board",
+      name: "Board",
+      component: Board
+    },
+    { path: "/Testing",
+      name: "Testing",
+      component: Testing
     },
     { path: "/login",
       name: "login",
