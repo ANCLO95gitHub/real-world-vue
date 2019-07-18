@@ -58,7 +58,7 @@ export default new Router({
       name: "leDivers",
       component: leDivers,
       meta: {
-      requersVisitor: true,
+        requersVisitor: true,
       }
     }
   ]

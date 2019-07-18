@@ -1,9 +1,9 @@
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
 // import Board from "@/components/Board.vue";
-
+// C:\nodejs\real-world-vue\src\router\router.js
 Vue.config.productionTip = false;
 
 export const bus = new Vue();

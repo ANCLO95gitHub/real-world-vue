@@ -30,7 +30,8 @@
     "sass-loader": "^7.1.0",
     "tedious": "^5.0.3",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.3",
+    "vue-cli": "^2.9.6",
+    "vue-router": "^3.0.7",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

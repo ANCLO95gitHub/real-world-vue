@@ -26,22 +26,61 @@
     <label>Voici la liste de vos items.</label>
     <table class="customTable">
       <thead>
-        <tr>
-          <th width="40px">ID</th>
-        </tr>
+      <tr>
+        <th width="40px">ID</th>
+        <th width="85px">Client</th>
+        <th width="200px">Courriel</th>
+        <th width="100px">ID de l Item</th>
+        <th width="150px">Purchase ID</th>
+        <th colspan="1" width="90px">Nom .</th>
+        <th width="85px">. piece</th>
+        <th width="75px">Longueur</th>
+        <th width="75px">Quantité</th>
+        <th width="100px">Prix</th>
+        <th width="50px">Vendu</th>
+
+        <th v-if="1==2" width="195px">DateTime</th>
+
+        <th width="75px">A retirer</th>
+        <th width="40px">IDID</th>
+      </tr>
       </thead>
     </table>
     <table class="customTable">
       <tbody>
-          <tr>
-            <td width="40px">{{lsMessage}}</td>
+      <div v-for="akartArray in kartArray" v-bind:key="akartArray.ID">
+        <tr>
+          <td width="40px">{{akartArray.ID}}</td>
+          <td width="85px">{{akartArray.clientID}}</td>
+          <td width="200px">{{akartArray.courriel}}</td>
+          <td width="100px">{{akartArray.IDID}}</td>
+          <td width="150px"> {{akartArray.InPurcId_ExPurcId}}</td>
 
-          </tr>
+          <td width="90px">{{akartArray.NomMB}}</td>
+          <td width="85px">{{akartArray.NomForme}}</td>
+
+          <td width="75px">{{akartArray.Longueur}}</td>
+          <td width="75px">{{akartArray.Quantity}}</td>
+          <td width="100px">{{akartArray.prix}}</td>
+          <td width="50px">{{akartArray.vendu}}</td>
+          <td v-if="1==2" width="195px">{{akartArray.DateTime}}</td>
+          <td width="75px">
+            <button class="favorite styled" @click="retirerItem(akartArray.IDID)" v-bind:title=lsMessage>Retirer l'Item</button>
+          </td>
+          <td width="40px">{{akartArray.IDID}}</td>
+        </tr>
+      </div>
       </tbody>
     </table>
     <div>
       <button @click="faireAchat">Faire l'Achat</button><br>
     </div>
+    <p>
+      {{msg}}
+      For a guide and recipes on how to configure / customize this project,<br />
+      check out the
+      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>
+    </p>
     <LeFooter msg="Une Entreprise de HOME inc."/>
   </div>
 </template>
@@ -50,7 +89,7 @@
 import axios from 'axios';
 import router from '../router'
 import {apiServeurmssql} from '../../src/views/config.js';
-import LeFooter from "@/components/LeFooter.vue";
+import LeFooter from './LeFooter.vue';
 
 import {bus} from '../main';
 
@@ -62,12 +101,26 @@ export default {
   components: { 'LeFooter':LeFooter },
   methods: {
     getKart () {
-      console.log('DEBUT getKart()  sans arg');
-
+      console.log('Board.vue DEBUT getKart()  sans arg');
+      this.is_ClientID = this.getCookie("ClientID");
+       let params = {
+        id : 0,
+      };
+      ///// {params},
+      axios.get(`${apiServeurmssql}getkart/`,{params},
+        {
+          headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type'}
+        }
+      )
+        .then(res => {
+          // eslint-disable-next-line eqeqeq
+          if (res.data.status === true) {
+            console.log(' res.data.InvenDet=' + res.data.KartMetaux);
+            this.kartArray = res.data.KartMetaux
+          }
+        })
+      console.log('FIN getKart() sans arg');
     },
-
-
-
     getWhoAmI(){
       axios.get(`${apiServeurmssql}getWhoAmI`,
         {
@@ -155,6 +208,9 @@ export default {
       })
     },
     getCookieResultat(){
+
+      console.log( "BOARD.VUE document.cookie=" + this.getCookie("ClientID"));
+      //return;
       //let dataFollow = { "IDID": 123 };
       axios.get(`${apiServeurmssql}getCookieResultat/${this.laSession}`,
         {
@@ -174,6 +230,21 @@ export default {
       this.leTitle = 'Vue sorcierette'
       console.log( this.leTitle );
       bus.$emit('titleChanged', 'Vue Sorciers2');
+    },
+    getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
     }
     //,    created() {
     //  console.log('async created() ');
@@ -182,6 +253,9 @@ export default {
   async created() {
     console.log('async created() ');
     this.getKart();
+    bus.$on("userIdChanged", (data) =>{
+      this.is_ClientID = data;
+    })
   }
 
 }

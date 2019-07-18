@@ -1,20 +1,21 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
+      <nav>
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link> |
 
-      <div v-if="!loggedIn">
-      <router-link to="/login">Login</router-link> |
-      </div>
-      <div v-if="loggedIn">
-        <router-link to="/logout">Logout</router-link> |
-      </div>
-      <router-link to="/ListCart">ListCart</router-link> |
-      <router-link to="/Testing">Testing</router-link>
-      <div>
-        <router-link to="/Board">The Board</router-link> |
-      </div>
+        <div v-if="!loggedIn">
+          <router-link to="/login">Login</router-link> |
+        </div>
+        <div v-if="loggedIn">
+          <router-link to="/logout">Logout</router-link> |
+        </div>
+        <div>
+          <router-link to="/ListCart">ListCart</router-link> |
+        </div>
+      </nav>
+
     </div>
     <!-- -->
     <router-view />

@@ -102,7 +102,7 @@ export default {
 
   name: "InventaireAVendre",
   data() {
-    return { laLongueur: 0, checked: "Ajouter au Cart", laQuantity:"0", lsMessageQty: '', lePrix: 0.00, lsMessageTel: 'Pour acheter l item, contacter le ((418) 878-0230).  (site web en construction)', valider: false };
+    return { laLongueur: 0, checked: "Ajouter au Cart", laQuantity:"0", lsMessageQty: '', lePrix: 0.00, lsMessageTel: 'Pour acheter l item, contacter le ((418) 878-0230).  (site web en construction)', valider: false, is_ClientID:'' };
   },
   methods: {
     getPic(mb, forme) {
@@ -128,7 +128,7 @@ export default {
         return;
       }
       if( (this.laLongueur * this.laQuantity) > OptionZ){
-        this.lsMessageQty = "La longeur maximum est de " + OptionZ + " pouces. Vous avez pris :" + (this.laLongueur * this.laQuantity ) + " pouces.";
+        this.lsMessageQty = "La longueur maximum est de " + OptionZ + " pouces. Vous avez pris :" + (this.laLongueur * this.laQuantity ) + " pouces.";
         return;
       }
       this.lsMessageQty = this.laQuantity + " morceau(x) de " + this.laLongueur + " pouce(s) d'un total de :"  + (this.laLongueur * this.laQuantity) + " pouce(s)."
@@ -143,12 +143,20 @@ export default {
 
       this.validerChamps(montant, OptionZ, quantity);
 
+      console.log('quantity=', quantity );
+
+
       if( this.valider ){
         const formData = new FormData();
         console.log('AVANT formData.append  ExPurcId=' + ExPurcId);
+        formData.append('clientID', this.is_ClientID);
         formData.append('ExPurcId', ExPurcId);  //placeholder.InPurcId_ExPurcId
-        let dataFollow = { "clientID": 'Zibouline', "courriel": "abc@def.com", "IDID": IDID , "ExPurcId": ExPurcId,  "laLongueur": laLongueur, "Quantity": quantity, "prix": this.lePrix, "OptionZ": OptionZ };
-        console.log('localStorage.getItem(\'token\')=' + localStorage.getItem('token'));
+        console.log('this.bindClientID=' + this.bindClientID);
+        this.is_ClientID = this.getCookie("ClientID");
+        console.log('this.is_ClientID=' + this.is_ClientID);
+        let dataFollow = {'clientID': this.is_ClientID, 'courriel': this.is_ClientID, 'IDID': IDID , 'ExPurcId': ExPurcId, 'laLongueur': laLongueur, 'Quantity': quantity, 'prix': this.lePrix, 'OptionZ': OptionZ };
+        console.log('dataFollow=', dataFollow );
+        //console.log('localStorage.getItem(\'token\')=' + localStorage.getItem('token'));
         //for( let jj = 1; jj <= quantity; jj++){
         //      axios.post(`http://localhost:1337/postkart/`, dataFollow,
         //axios.post(`https://serveurmssql.azurewebsites.net/postkart/`, {params: { id: this.picked}},
@@ -156,14 +164,18 @@ export default {
         ///axios.post(`https://serveurmssql.azurewebsites.net/postkart/`, dataFollow,
         //let titi= loginUrl.apiServeurmssql;
         //axios.post(`http://localhost:1337/postkart/`, dataFollow,
+
         axios.post(`${apiServeurmssql}postkart/`, dataFollow,
           {
-            headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type'}
+            headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type', 'Content-Type': 'application/json'}
           }
         ).then(res => {
           console.log(' res.status=' + res.status);
         });
       //}
+         /* axios.post(`${apiServeurmssql}postkart/`, {'clientID': this.is_ClientID} ).then(res => {
+          console.log(' res.status=' + res.status);
+        }); */
       //this.$router.replace({ name: 'ListCart' })
       }
       //this.$http.post('http://localhost:8080/Login');
@@ -178,12 +190,30 @@ export default {
           console.dir(e);
         })
       }*/
-     }
+    },
+    getCookie(cname) {
+      let name = cname + '=';
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
   },
   created(){
     //window.scrollTo(0,document.body.scrollHeight);
+    console.log('this.bindClientID=' + this.bindClientID);
+    this.is_ClientID = this.bindClientID;
+    console.log('this.is_ClientID=' + this.is_ClientID);
   },
-  props: ["placeholder"]
+  props: {placeholder: String, bindClientID: String}
 };
 </script>
 

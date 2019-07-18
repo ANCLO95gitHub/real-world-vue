@@ -87,7 +87,7 @@
 
     <ul class="enLigne">
     <div v-for="InvenDet in InventDisplay" v-bind:key="InvenDet.ID">
-      <InventaireAVendre :placeholder="InvenDet"></InventaireAVendre>
+      <InventaireAVendre :placeholder="InvenDet" v-bind:bindClientID="bindClientID"></InventaireAVendre>
     </div>
     </ul>
 
@@ -114,7 +114,7 @@ import {apiServeurmssql} from '../../src/views/config.js';
     }
   },
   props: {
-      msg: String,  bindLaSession: String
+      msg: String,  bindLaSession: String, bindClientID: String
     },
   methods: {
     getinventaire () {

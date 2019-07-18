@@ -72,12 +72,12 @@ import {bus} from '../main';
 export default {
   name: 'ListCart',
   data() {
-    return { laReponse: '', laReponseParam: '', leLogout: '', kartArray:[], lsMessage: "Pour retirer l'item du Kart", cookieResultat:'vide', laSession: 'zedivz', leTitle: 'vue...' };
+    return { laReponse: '', laReponseParam: '', leLogout: '', kartArray:[], lsMessage: "Pour retirer l'item du Kart", cookieResultat:'vide', laSession: 'zedivz', leTitle: 'vue...', is_ClientID:'' };
   },
   components: { 'LeFooter':LeFooter },
   methods: {
     getKart () {
-      console.log('DEBUT getKart()  sans arg');
+      console.log('DEBUT getKart()  AVEC arg cookie=' + this.getCookie("ClientID") );
       //'x-access-token': localStorage.getItem('token'),
       // http://localhost:1337/getkart/
       // https://serveurmssql.azurewebsites.net/
@@ -85,7 +85,12 @@ export default {
       //axios.get(`https://serveurmssql.azurewebsites.net/getkart/`,
       //axios.get(`http://localhost:1337/getkart/`,
     //alert( "loginUrl=" + apiServeurmssql )
-      axios.get(`${apiServeurmssql}getkart/`,
+      this.is_ClientID = this.getCookie("ClientID");
+      let params = {
+        id : this.is_ClientID,
+      };
+
+      axios.get(`${apiServeurmssql}getkart/`, {params},
         {
           headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type'}
         }
@@ -97,7 +102,7 @@ export default {
             this.kartArray = res.data.KartMetaux
           }
         })
-      console.log('FIN getKart() sans arg');
+      console.log('FIN getKart() avec arg');
     },
     getWhoAmI(){
       axios.get(`${apiServeurmssql}getWhoAmI`,
@@ -142,9 +147,6 @@ export default {
 
       })
     },
-    faireAchat(){
-      alert("Alert: faire du code pour achat:  avec PayPal par exemple.")
-    },
     retirerItem(IDID){
       //alert("IDID=" + IDID);
       let dataFollow = { "IDID": IDID };
@@ -160,37 +162,34 @@ export default {
       console.log( "FIN etirerItem");
       /////router.push("/");
     },
-    pipeMsSQLtoMongo(){
-      console.log( "pipeMsSQLtoMongo=");
-      let dataFollow = { "IDID": 123 };
-      axios.post(`${apiServeurmssql}pipeMsSQLtoMongo/`, dataFollow,
-        {
-          headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type'}
-        }
-      ).then(res => {
-        console.log(' res.status=' + res.status);
-      });
 
-    },
-    getCookieResultat(){
-      axios.get(`${apiServeurmssql}getCookieResultat/${this.laSession}`,
-        {
-          headers: {'x-access-token': localStorage.getItem('token'), 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type'}
-        }
-      ).then(res => {
-        // eslint-disable-next-line eqeqeq
-        //router.push("/");
-        let repon = res.data;
-        this.cookieResultat = repon;
-        this.changeTitle();
-      })
-    },
     changeTitle(){
       //alert('changeTitle(){');
       //this.$emit('changeTitle', 'Vue Wizard');
       this.leTitle = 'Vue sorcierette'
       console.log( this.leTitle );
       bus.$emit('titleChanged', 'Vue Sorciers2');
+    },
+    getCookie(cname) {
+      let name = cname + '=';
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    },
+    faireAchat(){
+      alert("Alert: faire du code pour achat:  avec PayPal par exemple.")
+
+
+
     }
     //,    created() {
     //  console.log('async created() ');
@@ -199,6 +198,10 @@ export default {
   async created() {
     console.log('async created() ');
     this.getKart();
+    bus.$on("userIdChanged", (data) =>{
+      this.is_ClientID = data;
+    })
+    console.log('qaz   qaz   this.is_ClientID=', this.is_ClientID );
   }
 
 /*
