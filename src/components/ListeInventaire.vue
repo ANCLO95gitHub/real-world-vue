@@ -129,10 +129,11 @@ import {apiServeurmssql} from '../../src/views/config.js';
         laSession: this.laSession
       };
       console.log(params);
+      // headers: {'x-access-token': localStorage.getItem('token'), 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type'}
       //axios.get(`${apiServeurmssql}getInventaire/`, {params: { id: this.picked, laSession: this.laSession }},
       axios.get(`${apiServeurmssql}getInventaire/`, {params},
         {
-          headers: {'x-access-token': localStorage.getItem('token'), 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type'}
+          headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type'}
         }
       )
         .then(res => {

@@ -10,7 +10,6 @@ const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 
-
 ///// npm install js-cookie
 
 const multipart = require("connect-multiparty");
@@ -45,7 +44,7 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session() );
 
-/*d
+/*
 app.get('/', function (req, res) {
   console.log('DEBUT  public/index.html   res.sendFile ')
   res.sendFile(path.join(__dirname, 'public/index.html')); // views

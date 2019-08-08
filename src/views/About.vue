@@ -16,5 +16,7 @@
       <br>
     Courriel: info@leclercrobotique.com
     </h2>
+    <br><br><br>
+    <h1>Le transport n'est pas compris</h1>
   </div>
 </template>

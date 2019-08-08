@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import App from './App.vue';
+import VueRouter from 'vue-router'
 import router from './router';
 import store from './store';
 // import Board from "@/components/Board.vue";
 // C:\nodejs\real-world-vue\src\router\router.js
 Vue.config.productionTip = false;
+Vue.use(VueRouter);
 
 export const bus = new Vue();
 
@@ -14,6 +16,7 @@ Vue.directive( 'rainbow', {
     el.style.color = "#" + Math.random().toString().slice(2,8);
   }
 });
+
 Vue.directive( 'theme', {
   bind(el,binding,vnode){
     if( binding.value=='wide'){
@@ -24,8 +27,14 @@ Vue.directive( 'theme', {
   }
 });
 
+
 new Vue({
-  data: { products: 'Socks'},
+  el: '#app',
+  data: { products: 'Socks',
+    paypal: {
+      sandbox:'clientid',
+      production:'production client id'
+    }},
   router,
   store,
 

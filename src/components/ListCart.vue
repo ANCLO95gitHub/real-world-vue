@@ -55,7 +55,38 @@
       </tbody>
     </table>
     <div>
+      <label>Sous-Total = </label>
+      <label> {{sousTotal}}$</label>
+      <br>
+      <label>TPS = </label>
+      <label> {{laTPS}}$</label>
+      <br>
+      <label>TVQ = </label>
+      <label> {{laTVQ}}$</label>
+      <br>
+      <label>Total de = </label>
+      <label> {{leTotal}}$</label>
+
+    </div>
+    <div>
       <button @click="faireAchat">Faire l'Achat</button><br>
+    </div>
+
+    <PayPal></PayPal>
+    <PayPal
+      amount="10.00"
+      currency="CND"
+      :client="credentials"
+      env="sandbox">
+    </PayPal>
+    <div id="paypal">
+      <paypal-checkout
+        amount="10.00"
+        currency="CND"
+        :client="paypal"
+        env="sandbox"
+        invoice-number="124356">
+      </paypal-checkout>
     </div>
     <LeFooter msg="Une Entreprise de HOME inc."/>
   </div>
@@ -66,15 +97,20 @@ import axios from 'axios';
 import router from '../router'
 import {apiServeurmssql} from '../../src/views/config.js';
 import LeFooter from './LeFooter.vue';
+import PayPal from 'vue-paypal-checkout'
 
 import {bus} from '../main';
 
 export default {
   name: 'ListCart',
   data() {
-    return { laReponse: '', laReponseParam: '', leLogout: '', kartArray:[], lsMessage: "Pour retirer l'item du Kart", cookieResultat:'vide', laSession: 'zedivz', leTitle: 'vue...', is_ClientID:'' };
+    return { laReponse: '', laReponseParam: '', leLogout: '', kartArray:[], lsMessage: "Pour retirer l'item du Kart", cookieResultat:'vide', laSession: 'zedivz', leTitle: 'vue...', is_ClientID:'', sousTotal: 0.00, laTPS: 0.00, laTVQ: 0.00, leTotal: 0.00,
+      paypal:{
+        sandbox: 'clientID',
+        production: 'production client id'
+      }};
   },
-  components: { 'LeFooter':LeFooter },
+  components: { 'LeFooter':LeFooter, PayPal},
   methods: {
     getKart () {
       console.log('DEBUT getKart()  AVEC arg cookie=' + this.getCookie("ClientID") );
@@ -86,12 +122,13 @@ export default {
       //axios.get(`http://localhost:1337/getkart/`,
     //alert( "loginUrl=" + apiServeurmssql )
       this.is_ClientID = this.getCookie("ClientID");
+      console.log('=>this.is_ClientID', this.is_ClientID )
       let params = {
         id : this.is_ClientID,
       };
 
       axios.get(`${apiServeurmssql}getkart/`, {params},
-        {
+      {
           headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type'}
         }
       )
@@ -101,6 +138,13 @@ export default {
             console.log(' res.data.InvenDet=' + res.data.KartMetaux);
             this.kartArray = res.data.KartMetaux
           }
+          for( let jj = 0; jj < this.kartArray.length; jj++){
+            this.sousTotal += parseFloat(this.kartArray[jj].prix);  //ac: ici looper
+          }
+          this.sousTotal = this.sousTotal.toFixed(2);
+          this.laTPS = (this.sousTotal * 0.05).toFixed(2);
+          this.laTVQ = (this.sousTotal * 0.09975).toFixed(2);
+          this.leTotal = (parseFloat(this.sousTotal) + parseFloat(this.laTPS) + parseFloat(this.laTVQ)).toFixed(2);
         })
       console.log('FIN getKart() avec arg');
     },
@@ -188,8 +232,6 @@ export default {
     faireAchat(){
       alert("Alert: faire du code pour achat:  avec PayPal par exemple.")
 
-
-
     }
     //,    created() {
     //  console.log('async created() ');
@@ -202,8 +244,16 @@ export default {
       this.is_ClientID = data;
     })
     console.log('qaz   qaz   this.is_ClientID=', this.is_ClientID );
-  }
+  },
+  mounted(){
+    let recaptchaScript = document.createElement('script');
+    recaptchaScript.setAttribute('src','https://unpkg.com/vue');
+    document.head.appendChild(recaptchaScript);
 
+    recaptchaScript.setAttribute('src','https://unpkg.com/vue-paypal-checkout@2.0.0/dist/vue-paypal-checkout.min.js');
+    document.head.appendChild(recaptchaScript);
+
+  }
 /*
 .containing-table {
   display: table;

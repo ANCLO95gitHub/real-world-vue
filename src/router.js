@@ -2,15 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/login.vue'
-import TheAdmin from '@/components/TheAdmin.vue';
+import TheAdmin from './components/TheAdmin.vue';
 import TheAdmin2 from '@/components/TheAdmin2.vue';
-import ListCart from '@/components/ListCart.vue';
+import ListCart from './components/ListCart.vue';
 
 import leDivers from '@/components/divers.vue';
 import Board from '@/components/Board.vue';
 
 Vue.use(Router);
-
+////
 export default new Router({
 
   mode: "history",

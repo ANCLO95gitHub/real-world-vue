@@ -54,14 +54,14 @@ export default {
       }
       console.log('apres this.is_ClientID=', this.is_ClientID);
       // eslint-disable-next-line no-empty
-      if( this.is_ClientID.length >= 4 ){
+      if (this.is_ClientID.length >= 4){
         this.ib_permission = true;
         bus.$emit('userIdChanged', this.is_ClientID);
         this.$emit('userIdChanged',this.is_ClientID);
         console.log( "AVANT document.cookie=" + document.cookie);
         document.cookie = "ClientID=" + this.is_ClientID;
         console.log( "APRES document.cookie=" + document.cookie);
-      }else{
+      } else {
         this.ib_permission = false;
       }
       console.log( this.ib_permission);
@@ -74,10 +74,10 @@ export default {
       window.scrollTo(0,0);
     },
     getCookie(cname) {
-      let name = cname + "=";
+      let name = cname + '=';
       let decodedCookie = decodeURIComponent(document.cookie);
       let ca = decodedCookie.split(';');
-      for(let i = 0; i <ca.length; i++) {
+      for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
         while (c.charAt(0) === ' ') {
           c = c.substring(1);
@@ -86,13 +86,13 @@ export default {
           return c.substring(name.length, c.length);
         }
       }
-      return "";
+      return '';
     },
     setLogout(){
       this.ib_permission = false;
       this.is_ClientID = '';
       document.cookie = 'ClientID=' + '';
-      document.cookie = "ClientID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+      document.cookie = 'ClientID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
     },
     if_ondblclick(){
       //alert('if_ondblclick(){');
