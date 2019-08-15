@@ -5,7 +5,7 @@
 
     <HelloWorld msg="Bienvenue à L. R. Métal: App  (418) 878-0230" v-bind:bindLaSession="laSession" v-on:userIdChanged="if_userIdChanged($event)"/>
 
-    <LeFooter msg="Une Entreprise de HOME inc."/>
+    <LeFooter msg="Une Entreprise de Leclerc Robotique inc."/>
     <nav>
       <router-link v-if="1==1" to="/TheAdmin">The Admin</router-link> ||
       <router-link v-if="1==1" to="/TheAdmin2">The Admin2</router-link> ||
@@ -24,7 +24,7 @@ import {bus} from '../main';
 export default {
   name: "home",
   data() {
-    return { laSession: 'Je viens de HOME',  is_ClientID: ''
+    return { laSession: ' ',  is_ClientID: ''
     }
   },
   methods: {

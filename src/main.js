@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import vuepaypal from 'vue-paypal-checkout'
 import App from './App.vue';
 import VueRouter from 'vue-router'
 import router from './router';
@@ -7,6 +8,8 @@ import store from './store';
 // C:\nodejs\real-world-vue\src\router\router.js
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
+//Vue.use(vuepaypal.default);
+Vue.use(vuepaypal)
 
 export const bus = new Vue();
 

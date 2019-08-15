@@ -4,7 +4,7 @@
     <div class="float_right">
       <!--
       <span>
-        <input class="search-input" type="text" :placeholder='[placeholder]'>
+        <input class="search-input" type="text" :place_holder=''>
       </span>
 
       <span>
@@ -45,7 +45,7 @@ export default {
     return {rien: ''}
   },
   props: {
-    placeholder: {
+    place_holder: {
       type: String,
       required: false,
       default: 'Search'

@@ -11,7 +11,6 @@
     <!-- [InvenDet.ID] -->
     <!-- <Testing/> -->
     <!-- ---->
-    bindLaSession={{bindLaSession}}
     <div id="checkboxes">
       <section>
         <h3>(1ere étape) Choisir la matière et sa forme</h3>
@@ -39,12 +38,14 @@
             <td><input type="radio" id="eight" value="ALBR" v-model="picked" @change="changeValue"/><label for="eight">BARRE RONDE</label></td>
             <td><input type="radio" id="nine" value="SSBR" v-model="picked" @change="changeValue"/><label for="nine">BARRE RONDE</label></td>
           </tr>
+          <!--
           <tr>
 
             <td><input type="radio" id="ten" value="ACPL" v-model="picked" @change="changeValue"/><label for="ten">Plat</label></td>
             <td><input type="radio" id="eleven" value="ALPL" v-model="picked" @change="changeValue"/><label for="eleven">Plat</label></td>
             <td><input type="radio" id="twelve" value="SSPL" v-model="picked" @change="changeValue"/><label for="twelve">Plat</label></td>
           </tr>
+          -->
           <tr>
 
             <td><input type="radio" id="thirteen" value="ACPU" v-model="picked" @change="changeValue"/><label for="thirteen">POUTRE EN U</label></td>
@@ -69,7 +70,7 @@
     </div>
 
     <!-- ---->
-    <TitleInventaire :placeholder="well"></TitleInventaire>
+    <TitleInventaire :place_holder="well"></TitleInventaire>
     <!--
         <ul class="enLigne">
           <li v-for="InvenDet in InvenDets" v-bind:key="InvenDet.ID">
@@ -79,7 +80,7 @@
             <span>{{InvenDet.DiminutifMB}}</span>
             <span>{{InvenDet.DiminutifForme}}</span>
             --
-        <InventaireAVendre :placeholder="InvenDet"></InventaireAVendre>
+        <InventaireAVendre :place_holder="InvenDet"></InventaireAVendre>
         <br> <br>
       </li>
     </ul>
@@ -87,7 +88,7 @@
 
     <ul class="enLigne">
     <div v-for="InvenDet in InventDisplay" v-bind:key="InvenDet.ID">
-      <InventaireAVendre :placeholder="InvenDet" v-bind:bindClientID="bindClientID"></InventaireAVendre>
+      <InventaireAVendre :place_holder="InvenDet" v-bind:bindClientID="bindClientID"></InventaireAVendre>
     </div>
     </ul>
 

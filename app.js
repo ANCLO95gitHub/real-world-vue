@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
-
+const paypal = require('paypal-rest-sdk');
 ///// npm install js-cookie
 
 const multipart = require("connect-multiparty");
@@ -22,14 +22,14 @@ const corsOptions = {
   methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'UPDATE'],
   credentials: true
 };
-
+app.use(cors(corsOptions));
 let url = require('url');
 ///// let port = process.env.PORT || 1337;
 console.log('app.js ligne 20...');
 
 let app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors(corsOptions));
+
 
 app.set('port', process.env.PORT || 5001);
 
@@ -44,6 +44,54 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session() );
 
+
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': 'Aa9a_yrXSzcTpuZni8FtQkYvk98vs0oTkfwD2UaCpQ8vaJcGUN2g9xBZZ9sqwfXnFxnXmrSQrd8Qr6IH',
+  'client_secret': 'EL3O6sJe0CgtMZszBgigMEu1Ja6qXi_OxfscVHTq7--Im8p01ADMaX3S5ChI_szixchfHx4tw9Xm4F-K'
+});
+app.post('/pay', (req, res) => {
+  //req.header("content-type: application/json, 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type ");
+  res.header("content-type: application/json");
+  let create_payment_json = {
+    "intent": "sale",
+    "payer": {
+      "payment_method": "paypal"
+    },
+    "redirect_urls": {
+      "return_url": "http://localhost:8080/success",
+      "cancel_url": "http://localhost:8080/cancel"
+    },
+    "transactions": [{
+      "item_list": {
+        "items": [{
+          "name": "red sox hat",
+          "sku": "001",
+          "price": "25.00",
+          "currency": "USD",
+          "quantity": 1
+        }]
+      },
+      "amount": {
+        "currency": "USD",
+        "total": "25.00"
+      },
+      "description": "This is the payment description."
+    }]
+  };
+  paypal.payment.create(create_payment_json, function (error, payment) {
+    if (error) {
+      throw error;
+    } else {
+      console.log("Create Payment Response");
+      console.log(payment);
+      res.send('test');
+    }
+  });
+
+});
+
+
 /*
 app.get('/', function (req, res) {
   console.log('DEBUT  public/index.html   res.sendFile ')
@@ -52,8 +100,9 @@ app.get('/', function (req, res) {
 });*/
 
 // Multiparty Middleware
-const multipartMiddleware = multipart();
-app.get('/getInventaire', multipartMiddleware, inventaire.getInventaire);
+////const multipartMiddleware = multipart();
+//app.get('/getInventaire', multipartMiddleware, inventaire.getInventaire);
+app.get('/getInventaire',  inventaire.getInventaire);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

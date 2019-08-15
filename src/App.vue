@@ -4,10 +4,10 @@
       <nav>
         <router-link to="/" exact>Portail</router-link> |
         <div v-if="!loggedIn">
-          <router-link to="/login">Login</router-link> |
-          <router-link to="/logout">Logout</router-link> |
+          <router-link to="/login">Créer Compte</router-link> |
           <router-link to="/ListCart" exact>ListCart</router-link> |
           <router-link to="/about">Au sujet de</router-link> |
+          <router-link to="/logout">Sortir</router-link>
         </div>
         <div></div>
       </nav>

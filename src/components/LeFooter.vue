@@ -1,9 +1,8 @@
 <template>
   <div class="hello" style="background-color: antiquewhite">
-    <h5>CopyRight Les Métaux {{msg}}</h5>
+    <h5>CopyRight Les Métaux ..., {{msg}}</h5>
     <img src="../../src/assets/logo.png">
 
-    leTitre={{leTitre}}
   </div>
 </template>
 

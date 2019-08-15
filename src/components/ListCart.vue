@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="app">
     <h1>
     <p>...</p>
     </h1>
@@ -10,8 +10,10 @@
       <thead>
         <tr>
           <th width="40px">ID</th>
+          <!--
           <th width="85px">Client</th>
-          <th width="200px">Courriel</th>
+          -->
+          <th width="210px">Courriel</th>
           <th width="100px">ID de l Item</th>
           <th width="150px">Purchase ID</th>
           <th colspan="1" width="90px">Nom .</th>
@@ -25,7 +27,7 @@
 
           <th width="75px">A retirer</th>
           <th width="40px">IDID</th>
-      </tr>
+        </tr>
       </thead>
     </table>
     <table class="customTable">
@@ -33,52 +35,105 @@
         <div v-for="akartArray in kartArray" v-bind:key="akartArray.ID">
           <tr>
             <td width="40px">{{akartArray.ID}}</td>
-            <td width="85px">{{akartArray.clientID}}</td>
-            <td width="200px">{{akartArray.courriel}}</td>
-            <td width="100px">{{akartArray.IDID}}</td>
-            <td width="150px"> {{akartArray.InPurcId_ExPurcId}}</td>
+            <!--
+           <td width="85px">{{akartArray.clientID}}</td>
+           -->
+           <td width="210px">{{akartArray.courriel}}</td>
+           <td width="100px">{{akartArray.IDID}}</td>
+           <td width="150px"> {{akartArray.InPurcId_ExPurcId}}</td>
 
-            <td width="90px">{{akartArray.NomMB}}</td>
-            <td width="85px">{{akartArray.NomForme}}</td>
+           <td width="90px">{{akartArray.NomMB}}</td>
+           <td width="85px">{{akartArray.NomForme}}</td>
 
-            <td width="75px">{{akartArray.Longueur}}</td>
-            <td width="75px">{{akartArray.Quantity}}</td>
-            <td width="100px">{{akartArray.prix}}</td>
-            <td width="50px">{{akartArray.vendu}}</td>
-            <td v-if="1==2" width="195px">{{akartArray.DateTime}}</td>
-            <td width="75px">
-              <button class="favorite styled" @click="retirerItem(akartArray.IDID)" v-bind:title=lsMessage>Retirer l'Item</button>
-            </td>
-            <td width="40px">{{akartArray.IDID}}</td>
-          </tr>
-        </div>
-      </tbody>
-    </table>
+           <td width="75px">{{akartArray.Longueur}}</td>
+           <td width="75px">{{akartArray.Quantity}}</td>
+           <td width="100px">{{akartArray.prix}}</td>
+           <td width="50px">{{akartArray.vendu}}</td>
+           <td v-if="1==2" width="195px">{{akartArray.DateTime}}</td>
+           <td width="75px">
+             <button class="favorite styled" @click="retirerItem(akartArray.IDID)" v-bind:title=lsMessage>Retirer l'Item</button>
+           </td>
+           <td width="40px">{{akartArray.IDID}}</td>
+         </tr>
+       </div>
+     </tbody>
+   </table>
+
     <div>
-      <label>Sous-Total = </label>
-      <label> {{sousTotal}}$</label>
-      <br>
-      <label>TPS = </label>
-      <label> {{laTPS}}$</label>
-      <br>
-      <label>TVQ = </label>
-      <label> {{laTVQ}}$</label>
-      <br>
-      <label>Total de = </label>
-      <label> {{leTotal}}$</label>
-
+      <table class="maTable">
+        <tr class="monTr">
+          <td> <label>Sous-Total = </label></td>
+          <td><label> {{sousTotal}}$</label></td>
+        </tr>
+        <tr class="monTr">
+          <td><label>TPS = </label></td>
+          <td><label> {{laTPS}}$</label></td>
+        </tr>
+        <tr class="monTr">
+          <td><label>TVQ = </label></td>
+          <td><label> {{laTVQ}}$</label></td>
+        </tr>
+        <tr class="monTr">
+          <td> <label>Total de = </label></td>
+          <td> <label> {{leTotal}}$</label></td>
+        </tr>
+        <tr class="monTr">
+          <td></td>
+          <td></td>
+        </tr>
+        <tr class="monTr">
+          <td></td>
+          <td>
+            <paypal-checkout
+              :amount="leTotal"
+              currency="CAD"
+              env="sandbox"
+              v-on:payment-authorized="paymentAuthorized"
+              v-on:payment-completed="paymentCompleted"
+              v-on:payment-cancelled="paymentCancelled"
+              :client="credentials"
+            >
+            </paypal-checkout>
+          </td>
+        </tr>
+      </table>
     </div>
-    <div>
-      <button @click="faireAchat">Faire l'Achat</button><br>
-    </div>
+   <div>
 
-    <PayPal></PayPal>
-    <PayPal
-      amount="10.00"
-      currency="CND"
-      :client="credentials"
-      env="sandbox">
-    </PayPal>
+   </div>
+   <div>
+     <button @click="faireAchat">Faire l'Achat</button><br>
+     <button @click="faireAchat2">Faire l'Achat2</button><br>
+   </div>
+a
+   <div>
+     <PayPal :amount="amount"
+             currency="USD"
+             :client="credentials"
+     ></PayPal>
+   </div>
+z<br>
+   a
+   <div>
+
+   </div>
+   z<br>
+abc
+   <paypal-simple amount="10.00" currency="USD" :client="credentials"></paypal-simple>
+   <paypal-advanced :methods="credentials"></paypal-advanced>
+   <!--
+   <paypal-checkout
+     amount="10.00"
+     currency="CND"
+     :client="credentials"
+     env="sandbox">
+   </paypal-checkout>
+   -->
+xyz
+1243
+
+7809
+    <!--
     <div id="paypal">
       <paypal-checkout
         amount="10.00"
@@ -88,6 +143,16 @@
         invoice-number="124356">
       </paypal-checkout>
     </div>
+ -->
+    <!--
+avant
+<paypal2 :amount="amount"></paypal2>
+apres
+
+<div>
+<PayPal :amount="amount"></PayPal>
+</div>
+-->
     <LeFooter msg="Une Entreprise de HOME inc."/>
   </div>
 </template>
@@ -97,20 +162,24 @@ import axios from 'axios';
 import router from '../router'
 import {apiServeurmssql} from '../../src/views/config.js';
 import LeFooter from './LeFooter.vue';
-import PayPal from 'vue-paypal-checkout'
+import PayPal from 'vue-paypal-checkout';
+import PayPal2 from './Paypal';
+import PayPalCheckout from './PayPalCheckout.vue';
 
 import {bus} from '../main';
-
+//        sandbox: 'Aa9a_yrXSzcTpuZni8FtQkYvk98vs0oTkfwD2UaCpQ8vaJcGUN2g9xBZZ9sqwfXnFxnXmrSQrd8Qr6IH',
+//         production: 'EL3O6sJe0CgtMZszBgigMEu1Ja6qXi_OxfscVHTq7--Im8p01ADMaX3S5ChI_szixchfHx4tw9Xm4F-K'
 export default {
   name: 'ListCart',
   data() {
     return { laReponse: '', laReponseParam: '', leLogout: '', kartArray:[], lsMessage: "Pour retirer l'item du Kart", cookieResultat:'vide', laSession: 'zedivz', leTitle: 'vue...', is_ClientID:'', sousTotal: 0.00, laTPS: 0.00, laTVQ: 0.00, leTotal: 0.00,
-      paypal:{
-        sandbox: 'clientID',
-        production: 'production client id'
-      }};
+      credentials:{
+        'sandbox': 'Aa9a_yrXSzcTpuZni8FtQkYvk98vs0oTkfwD2UaCpQ8vaJcGUN2g9xBZZ9sqwfXnFxnXmrSQrd8Qr6IH',
+        'production': ''
+      },
+      amount: "10.00"};
   },
-  components: { 'LeFooter':LeFooter, PayPal},
+  components: { 'LeFooter':LeFooter, PayPal, 'paypal2':PayPal2, 'paypal-checkout': PayPalCheckout},
   methods: {
     getKart () {
       console.log('DEBUT getKart()  AVEC arg cookie=' + this.getCookie("ClientID") );
@@ -128,12 +197,13 @@ export default {
       };
 
       axios.get(`${apiServeurmssql}getkart/`, {params},
-      {
+        {
           headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type'}
         }
       )
         .then(res => {
           // eslint-disable-next-line eqeqeq
+          this.sousTotal = 0.00
           if (res.data.status === true) {
             console.log(' res.data.InvenDet=' + res.data.KartMetaux);
             this.kartArray = res.data.KartMetaux
@@ -192,18 +262,21 @@ export default {
       })
     },
     retirerItem(IDID){
+      console.log( "DEBUT etirerItem");
       //alert("IDID=" + IDID);
       let dataFollow = { "IDID": IDID };
-      console.log( "dataFoloow=" + dataFollow.IDID);
+      console.log( "dataFollow=" + dataFollow.IDID);
       axios.post(`${apiServeurmssql}deletekart/`, dataFollow,
         {
           headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type'}
-          }
+        }
       ).then(res => {
           console.log(' res.status=' + res.status)
         })
-      this.getKart();
-      console.log( "FIN etirerItem");
+      router.push("/");
+      //router.push("/ListCart");
+      //this.getKart();
+      console.log( "FIN retirerItem");
       /////router.push("/");
     },
 
@@ -229,9 +302,45 @@ export default {
       }
       return "";
     },
+    paymentAuthorized: function (data) {
+      console.log( 'paymentAuthorized' );
+      console.log(data);
+
+
+    },
+    paymentCompleted: function (data) {
+      console.log( 'paymentCompleted' );
+      console.log(data);
+    },
+    paymentCancelled: function (data) {
+      console.log( 'paymentCancelled' );
+      console.log(data);
+    },
     faireAchat(){
       alert("Alert: faire du code pour achat:  avec PayPal par exemple.")
-
+      console.log('DEBUT  faireAchat()' );
+      let dataFollow = { "IDID": this.leTotal };
+      //axios.post(`http://localhost:8080/pay/`, dataFollow,
+      axios.post(` http://192.168.200.146:8080/pay/`, dataFollow,
+        {
+          headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type'}
+        }
+      ).then(res => {
+        console.log(' res.status=' + res.status)
+      })
+      console.log('FIN  faireAchat()' );
+    },
+    faireAchat2(){
+      //alert("Alert2: faire du code pour achat:  avec PayPal par exemple.")
+      console.log('DEBUT  faireAchat2()' );
+      let dataFollow = { "IDID": this.leTotal };
+      //  headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type'}
+      //headers: { 'Access-Control-Allow-Origin': '*'}
+      //axios.post(`http://localhost:1337/pay/`, dataFollow, {headers: {'Access-Control-Allow-Origin': '*'}} ).then(res => {
+      axios.post(`http://localhost:3005/pay/`, dataFollow, {headers: {'Access-Control-Allow-Origin': '*'}} ).then(res => {
+        console.log(' res.status=' + res.status)
+      })
+      console.log('FIN  faireAchat2()' );
     }
     //,    created() {
     //  console.log('async created() ');
@@ -246,13 +355,20 @@ export default {
     console.log('qaz   qaz   this.is_ClientID=', this.is_ClientID );
   },
   mounted(){
+
     let recaptchaScript = document.createElement('script');
+
     recaptchaScript.setAttribute('src','https://unpkg.com/vue');
     document.head.appendChild(recaptchaScript);
 
     recaptchaScript.setAttribute('src','https://unpkg.com/vue-paypal-checkout@2.0.0/dist/vue-paypal-checkout.min.js');
     document.head.appendChild(recaptchaScript);
 
+    recaptchaScript.setAttribute('src','https://www.paypalobjects.com/api/checkout.js');
+    document.head.appendChild(recaptchaScript);
+
+    recaptchaScript.setAttribute('src','https://www.paypal.com/sdk/js?client-id=sb');
+    document.head.appendChild(recaptchaScript);
   }
 /*
 .containing-table {
@@ -313,6 +429,21 @@ table.customTable thead {
   background-color: #7EA8F8;
 }
 
+.maTable {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 20%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.monTr:nth-child(even) {
+  background-color: #dddddd;
+}
 
 
 </style>

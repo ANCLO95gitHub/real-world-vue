@@ -4,37 +4,37 @@
       <tbody>
         <tr v-rainbow>
           <td class="cimg" >
-            <img :src="getPic(placeholder.DiminutifMB, placeholder.DiminutifForme)" alt=".."/>
+            <img :src="getPic(place_holder.DiminutifMB, place_holder.DiminutifForme)" alt=".."/>
           </td>
           <td  width="200px">
-            {{ placeholder.DescriptionCourte }}<br />{{
-            placeholder.DescriptionLongue
+            {{ place_holder.DescriptionCourte }}<br />{{
+            place_holder.DescriptionLongue
             }}
           </td>
 
-          <td v-if="placeholder.ID>0" width="50px">
-            {{placeholder.ID}}
+          <td v-if="place_holder.ID>0" width="50px">
+            {{place_holder.ID}}
           </td>
           <td v-else width="50px" style="border:0px;"></td>
 
-          <td v-if="placeholder.ID>0" width="60px">
-            {{placeholder.Montant}}$
+          <td v-if="place_holder.ID>0" width="60px">
+            {{place_holder.Montant}}$
           </td>
           <td v-else width="60px" style="border:0px;"></td>
 
-          <td v-if="placeholder.ID>0" width="90px">
-            <label>{{placeholder.OptionZ}}" <br> (*Poids) </label>
+          <td v-if="place_holder.ID>0" width="90px">
+            <label>{{place_holder.OptionZ}}" <br> (*Poids) </label>
           </td>
           <td v-else width="90px" style="border:0px;"></td>
 
-          <td v-if="placeholder.ID>0" width="50px" v-rainbow>
-            <label  style="min-width:110px;max-width:110px;border: 1px solid grey" for="placeholder.NomForme">
-              {{placeholder.NomForme}}
+          <td v-if="place_holder.ID>0" width="50px" v-rainbow>
+            <label  style="min-width:110px;max-width:110px;border: 1px solid grey" for="place_holder.NomForme">
+              {{place_holder.NomForme}}
             </label>
           </td>
           <td v-else width="50px" style="border:0px;"></td>
 
-          <td v-if="placeholder.ID>0" width="107px">
+          <td v-if="place_holder.ID>0" width="107px">
         <!--
         <select class="right" required style="width: 107px; float: right;" onchange="this.nextElementSibling.value=this.value">
           <option class="right" value="" ></option>
@@ -53,21 +53,21 @@
           <option value="24">24</option>
       </select>
         -->
-            <input id="idLongueur" autofocus class="right" type="number" pattern="\d+" name="enpouce" v-model="laLongueur" @input="validerChamps(placeholder.Montant,placeholder.OptionZ,laQuantity)" />
+            <input id="idLongueur" autofocus class="right" type="number" pattern="\d+" name="enpouce" v-model="laLongueur" @input="validerChamps(place_holder.Montant,place_holder.OptionZ,laQuantity)" />
           </td>
           <td v-else width="107px" style="border:0px;"></td>
 
-          <td v-if="placeholder.ID>0" width="75px">
-            <input id="idQuantity" class="right" type="number" pattern="\d+" name="enQty" v-model="laQuantity" @input="validerChamps(placeholder.Montant,placeholder.OptionZ,laQuantity)" value="1"  />
+          <td v-if="place_holder.ID>0" width="75px">
+            <input id="idQuantity" class="right" type="number" pattern="\d+" name="enQty" v-model="laQuantity" @input="validerChamps(place_holder.Montant,place_holder.OptionZ,laQuantity)" value="1"  />
           </td>
           <td v-else width="75px" style="border:0px;"></td>
 
-          <td v-if="placeholder.ID>0" width="75px">
+          <td v-if="place_holder.ID>0" width="75px">
             {{ lePrix }}$
           </td>
           <td v-else width="75px" style="border:0px;"></td>
 
-          <td v-if="placeholder.ID>0" >
+          <td v-if="place_holder.ID>0" >
           <!--
           <input
                   type="button"
@@ -78,14 +78,14 @@
                   @onclick="validerChamps"
           />
         <label>{{ laQuantity }}</label> -->
-            <button class="favorite styled" @click="validerButton(placeholder.Montant,placeholder.OptionZ,laQuantity, placeholder.ID, placeholder.InPurcId_ExPurcId, laLongueur)" v-bind:title=lsMessageTel>Ajouter ((418) 878-0230)</button>
+            <button class="favorite styled" @click="validerButton(place_holder.Montant,place_holder.OptionZ,laQuantity, place_holder.ID, place_holder.InPurcId_ExPurcId, laLongueur)" v-bind:title=lsMessageTel>Ajouter ((418) 878-0230)</button>
             <br>
             <label>{{ lsMessageQty }}</label>
           </td>
           <td v-else width="75px" style="border:0px;"></td>
 
-          <td v-if="placeholder.ID>0" width="107px">
-            {{placeholder.InPurcId_ExPurcId}}
+          <td v-if="place_holder.ID>0" width="107px">
+            {{place_holder.InPurcId_ExPurcId}}
           </td>
           <td v-else width="17px" style="border:0px;"></td>
       </tr>
@@ -114,7 +114,7 @@ export default {
       console.log('this.laLongueur=' + this.laLongueur);
       console.log('this.laQuantity=' + this.laQuantity);
       //alert('work !Number.isInteger(this.laLongueur=' + Number.isInteger(+this.laLongueur));
-      //alert('work in progress 222  placeholder.OptionZ=' + OptionZ);
+      //alert('work in progress 222  place_holder.OptionZ=' + OptionZ);
       this.lsMessageQty="";
       this.lePrix  = 0.00;
       this.valider = false;
@@ -150,7 +150,7 @@ export default {
         const formData = new FormData();
         console.log('AVANT formData.append  ExPurcId=' + ExPurcId);
         formData.append('clientID', this.is_ClientID);
-        formData.append('ExPurcId', ExPurcId);  //placeholder.InPurcId_ExPurcId
+        formData.append('ExPurcId', ExPurcId);  //place_holder.InPurcId_ExPurcId
         console.log('this.bindClientID=' + this.bindClientID);
         this.is_ClientID = this.getCookie("ClientID");
         console.log('this.is_ClientID=' + this.is_ClientID);
@@ -209,11 +209,11 @@ export default {
   },
   created(){
     //window.scrollTo(0,document.body.scrollHeight);
-    console.log('this.bindClientID=' + this.bindClientID);
+    //console.log('this.bindClientID=' + this.bindClientID);
     this.is_ClientID = this.bindClientID;
-    console.log('this.is_ClientID=' + this.is_ClientID);
+    //console.log('this.is_ClientID=' + this.is_ClientID);
   },
-  props: {placeholder: String, bindClientID: String}
+  props: {place_holder: Object, bindClientID: String}
 };
 </script>
 
@@ -366,7 +366,7 @@ img{
   width: 50px;
   max-width: 50px;
   max-height: 50px;
-  border-style: groove;
+  border-style: none;
 }
 
 .cimg{

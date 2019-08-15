@@ -26,6 +26,8 @@ const config3 = {
 exports.getInventaire = function (req, res) {
   res.header("content-type: application/json");
   console.log('getInventaire - Recherche de tous les objets en inventaire');
+
+  if( 1  === 2 ){
   let id = 3105; //req.params.id;
   console.log('getInventaire - Recherche document  inventaire: ' + id);
   if( !( id >=0 )){
@@ -60,6 +62,6 @@ exports.getInventaire = function (req, res) {
 
     //sql.close();
   });
-
+  }
   console.log('FIN:::   getInventaire - Recherche de tous les inventaire');
 };
