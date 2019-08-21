@@ -2,10 +2,37 @@
   <div class="hello">
     <h2>{{ msg }}</h2>
     <div v-if="!ib_permission" class="container">
-      <label for='uname'><b>No de Client / Customer ID</b></label>
-      <input type="text" placeholder="{Entrez... Enter}" name="uname" required v-model="is_ClientID" @dblclick="if_ondblclick(1)" @click.ctrl="if_ondblclick(2)">
-      <button type="submit" v-on:click="getClientID">Login</button>
-    </div>
+      <table>
+        <tr>
+          <td>
+            <label for='uname'><b>Courriel / Email</b></label>
+          </td>
+          <td>
+            <input type="text" placeholder="..." name="uname" required v-model="is_ClientID" @dblclick="if_ondblclick(1)" @click.ctrl="if_ondblclick(2)">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label><b>Mot de Passe</b></label>
+          </td>
+          <td>
+            <input type="password" name="pwd" v-model="pwd1" title="Minimum et maximum.">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button type="submit" v-on:click="getClientID">Login</button>
+            <button type="submit" v-on:click="setLogout">Logout</button>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+
+   </div>
     <div v-if="ib_permission">
       <button type="submit" v-on:click="setLogout">Logout</button>
       <h5>[{{is_ClientID}}]</h5>
@@ -34,7 +61,7 @@ import {bus} from '../main';
 export default {
   name: "HelloWorld",
   data () {
-    return { vlaSession: 'zzz', is_ClientID: '', ib_permission: false };
+    return { vlaSession: '', is_ClientID: '', ib_permission: false, pwd1: '', pwd2:'', is_cookie:''};
   },
   components: { ListeInventaire, leDivers, Board },
   props: {
@@ -44,32 +71,38 @@ export default {
   methods: {
     getClientID() {
       console.log('DEBUT getClientID');
-      console.log('ib_permission=' + this.ib_permission);
-      console.log('getCookie=', this.getCookie('ClientID'));
-      console.log('avant this.is_ClientID=', this.is_ClientID);
-      console.log('this.is_ClientID.length=', this.is_ClientID.length);
-      // this.ib_permission = false;
-      // document.cookie = 'ClientID=' + '';
-      // document.cookie = 'ClientID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+      this.is_cookie = this.getCookie('ClientID');
+      if (this.is_cookie.length >= 4){
+        console.log('OUI un cookie et est:', this.is_cookie);
+        this.is_ClientID = this.is_cookie;
+      }
 
-      console.log( "AVANT getCookie")
       if( this.is_ClientID.length < 1 || this.is_ClientID.length === null ){
         this.is_ClientID = this.getCookie('ClientID');
         console.log('this.getCookie(\'ClientID\')=', this.is_ClientID);
       }
       if (this.is_ClientID.length >= 4){
         this.ib_permission = true;
-        bus.$emit('userIdChanged', this.is_ClientID);
-        this.$emit('userIdChanged',this.is_ClientID);
+        //bus.$emit('userIdChanged', this.is_ClientID);
+        //this.$emit('userIdChanged',this.is_ClientID);
         console.log( "AVANT document.cookie=" + document.cookie);
         document.cookie = "ClientID=" + this.is_ClientID;
+        //Cookies.set( "ClientID=", this.is_ClientID );
         console.log( "APRES document.cookie=" + document.cookie);
-      } else {
-        this.ib_permission = false;
       }
+      else {
+        this.ib_permission = false;
+        return;
+      }
+      if( this.pwd2 === '') {
+        this.pwd2 = this.pwd1;
+      }
+      this.pwd1 = '';
       let params = {
         id: this.is_ClientID,
+        password: this.pwd2
       };
+
       axios.get(`${apiServeurmssql}isClientID/`, {params},
         {
           headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type'}
@@ -77,32 +110,31 @@ export default {
       )
         .then(res => {
           if (res.data.status === true) {
-            console.log(' res.data.status=' + res.data.status);
             if( this.is_ClientID.length < 1 || this.is_ClientID.length === null ){
               this.is_ClientID = this.getCookie('ClientID');
             }
-            console.log('apres this.is_ClientID=', this.is_ClientID);
             // eslint-disable-next-line no-empty
             if (this.is_ClientID.length >= 4){
-              this.ib_permission = true;
-              bus.$emit('userIdChanged', this.is_ClientID);
-              this.$emit('userIdChanged',this.is_ClientID);
+              //bus.$emit('userIdChanged', this.is_ClientID);
+              //this.$emit('userIdChanged',this.is_ClientID);
               console.log( "AVANT document.cookie=" + document.cookie);
               document.cookie = "ClientID=" + this.is_ClientID;
               console.log( "APRES document.cookie=" + document.cookie);
+              this.ib_permission = true;
             } else {
               this.ib_permission = false;
             }
           }else{
             console.log(' res.data.status=' + res.data.status);
-            alert( 'Cet usager n est pas inscrit dans le compte.  Vous pouvez vous inscire dans "Créer Compte"')
+           // this.ib_permission = false;
+            //alert( 'Cet usager n est pas inscrit dans le compte.  Vous pouvez vous inscire dans "Créer Compte"')
           }
 
         });
 
 
-
-      console.log( this.ib_permission);
+//this.ib_permission = false;//ac:temp
+      console.log( 'this.ib_permission ===', this.ib_permission);
     },
     updateTitle( upTitle ){
       //alert(upTitle);
@@ -127,11 +159,14 @@ export default {
       return '';
     },
     setLogout(){
-      this.ib_permission = false;
       this.is_ClientID = '';
+      this.ib_permission = false;
+      this.pwd1 = '';
+      this.pwd2 = '';
       document.cookie = 'ClientID=' + '';
       document.cookie = 'ClientID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
     },
+    ///ac:tempo
     if_ondblclick(condition){
       //alert('if_ondblclick(){');
       if( condition === 1){
@@ -159,8 +194,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+h2 {
+  margin: 10px 0 0;
+}
 h3 {
-  margin: 40px 0 0;
+  margin: 20px 0 0;
+}
+h5 {
+  margin: 20px 0 0;
 }
 ul {
   list-style-type: none;
@@ -175,5 +216,22 @@ a {
 }
 input{
   width: 200px;
+}
+table {
+  position: relative;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 40%;
+  margin-left: 30%
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
 </style>

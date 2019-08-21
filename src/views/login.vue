@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="login">
+    <div  v-if="ib_voir"  id="login">
       <h1>Leclerc Robotique inc.</h1>
       <h3>Créer Compte</h3>
       <table>
@@ -8,12 +8,23 @@
           <td><label>Courriel: </label></td>
           <td><input type="text" name="Email" v-model="input.Email" placeholder="Courriel, Email" title="Important de respecter le format du courriel"/>abc@def.ghi</td>
         </tr>
+
+        <tr>
+          <td><label title="Minimum de 5 lettres et maximum de 10 lettres.">Mot de passe:</label></td>
+          <td><input type="password" name="pwd" v-model="input.pwd1" title="Minimum de 4 lettres et maximum de 10 lettres."/></td>
+        </tr>
+
+        <tr>
+          <td><label title="Minimum de 5 lettres et maximum de 10 lettres.">Confirmer: Mot de passe:</label></td>
+          <td><input type="password" name="pwd2" v-model="input.pwd2" title="Minimum de 4 lettres et maximum de 10 lettres."/></td>
+        </tr>
+
         <tr>
           <td><label>Téléphone: </label></td>
           <td><input type="text" name="phone" v-model="input.phone" placeholder="Téléphone, phone"  title="Important de respecter le format du téléphone" />999-999-9999</td>
         </tr>
         <tr>
-          <td><label>Adresse de livraison</label><br></td>
+          <td><label>Adresse de livraison</label></td>
           <td></td>
         </tr>
         <tr>
@@ -26,7 +37,7 @@
         </tr>
         <tr>
           <td><label>Code Postal: </label></td>
-          <td> <input type="text" name="postalcode" v-model="input.postalcode" placeholder="Code Postal, Postal Code" title="Important de respecter le format du Code Postal" />G1G 1G1</td>
+          <td> <input type="text" name="postalcode" v-model="input.postalcode" placeholder="Code Postal, Postal Code" title="Important de respecter le format du Code Postal" @dblclick="if_ondblclick(1)"/>G1G 1G1</td>
         </tr>
         <tr>
           <td></td>
@@ -47,6 +58,10 @@
       <br>
       <input type="text" id="message" name="message" width="148" v-model="message" readonly title="S'il y a une erreur, elle s'affichera ici." />
     </div>
+    <div  v-if="!ib_voir"  id="vide">
+      <label><h3>Vous êtes déjà inscrit. </h3> </label>
+    </div>
+
     <!--
     <div id="loginGoogle">
     <a href="<GENERATED_GOOGLE_URL>">Login with Google</a>
@@ -77,9 +92,12 @@ export default {
         address: '',
         city: '',
         postalcode: '',
-        password: ''
+        pwd1: '',
+        pwd2: ''
       },
-      message: ''
+      message: '',
+      ib_voir: true,
+      is_ClientID: ''
     }
   },
   methods: {
@@ -94,11 +112,23 @@ export default {
         }else{
           this.message = "";
         }
+        if( this.input.pwd1.length < 5 ){
+          this.message = "Le mot de passe est trop court.";
+          return
+        }
+        if( this.input.pwd1.length > 10 ){
+          this.message = "Le mot de passe est trop long.";
+          return
+        }
+        if( this.input.pwd1 !== this.input.pwd2){
+          this.message = "Les mots de passe ne concordent pas.";
+          return
+        }
         if( !this.validatePhone(this.input.phone)){
           this.message = "Le téléphone est non valide.";
           return;
         }else{
-          this.message = "";
+          this.message = "est bon le téléphone";
         }
 
         if( this.input.postalcode !== ""){
@@ -107,7 +137,6 @@ export default {
             return;
           }
         }
-        return;
         this.message = "";
         let params = {
           Email: this.input.Email,
@@ -115,7 +144,7 @@ export default {
           address: this.input.address,
           city: this.input.city,
           postalcode: this.input.postalcode,
-          password: this.input.password,
+          password: this.input.pwd1,
         };
         axios.post(`${apiServeurmssql}createAccount/`, params,
           {
@@ -172,6 +201,36 @@ export default {
     login() {
       //this.$auth.login();
       alert( "loggin quand");
+    },
+    if_ondblclick(condition){
+      //alert('if_ondblclick(){');
+      if( condition === 1){
+        this.input.Email = 'andrec@leclercrobotique.com';
+        this.input.pwd1 = '12345';
+        this.input.pwd2 = '12345';
+        this.input.phone = '999-999-9999';
+        this.input.address = '5, ave';
+        this.input.city = 'ib';
+        this.input.postalcode = 'H9H 9H9';
+      }
+      if( condition === 2){
+        this.is_ClientID = 'andre.cloutier.4@ulaval.ca';
+      }
+    },
+    getCookie(cname) {
+      let name = cname + '=';
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return '';
     }
   },
   mounted() {
@@ -180,6 +239,12 @@ export default {
 
     recaptchaScript.setAttribute('src', '/vue-authenticate.js');
     document.head.appendChild(recaptchaScript);
+
+    this.ib_voir = true;
+    this.is_ClientID = this.getCookie('ClientID');
+    if (this.is_ClientID.length >= 4){
+      this.ib_voir = false;
+    }
   },
   async created() {
     try {
@@ -206,7 +271,6 @@ export default {
   font-size: 18px;
   padding: 10px;
   background: #ff5353;
-
 }
 #message{
   width: 300px;

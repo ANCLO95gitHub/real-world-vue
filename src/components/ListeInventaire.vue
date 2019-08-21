@@ -1,19 +1,13 @@
 <template>
   <div class="enLigne">
-    <h4 v-on:click="changeTitle">hhh{{bindLaSession}}iii</h4>
+    <h4 v-on:click="changeTitle">{{bindLaSession}}</h4>
     <button @click="changeTitle">{{msg}}</button>
-    <br>
     <h5>{{ msg }}</h5>
-    <!--
-            <button name="unBouttonInventaire" @click="getinventaire">Submit Inventaire</button>
-            -->
-    <!-- v-bind:key="InvenDet.id"-->
-    <!-- [InvenDet.ID] -->
-    <!-- <Testing/> -->
+
     <!-- ---->
     <div id="checkboxes">
       <section>
-        <h3>(1ere étape) Choisir la matière et sa forme</h3>
+        <h4>(1ere étape) Choisir la matière et sa forme</h4>
         <table class="customTable">
           <thead>
           <tr>
@@ -260,6 +254,12 @@ import {apiServeurmssql} from '../../src/views/config.js';
 <style scoped>
 h1, h2 {
   font-weight: normal;
+}
+h4 {
+  margin: 10px 0 0;
+}
+h5 {
+  margin: 10px 0 0;
 }
 ul {
   list-style-type: none;

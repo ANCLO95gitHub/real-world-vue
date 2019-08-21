@@ -11,7 +11,7 @@
       <router-link v-if="1==1" to="/TheAdmin2">The Admin2</router-link> ||
       <router-link to="/leDivers">Divers</router-link> |
       <router-link to="/Testing">Testing</router-link> |
-      <router-link to="/Board">The Board</router-link> |
+      <router-link to="/Board">Tableau de Bord</router-link> |
     </nav>
   </div>
 </template>

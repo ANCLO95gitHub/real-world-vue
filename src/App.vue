@@ -4,7 +4,9 @@
       <nav>
         <router-link to="/" exact>Portail</router-link> |
         <div v-if="!loggedIn">
-          <router-link to="/login">Créer Compte</router-link> |
+          <span v-if="ib_voir" class="container">
+            <router-link to="/login">Créer Compte</router-link> |
+          </span>
           <router-link to="/ListCart" exact>ListCart</router-link> |
           <router-link to="/about">Au sujet de</router-link> |
           <router-link to="/logout">Sortir</router-link>
@@ -29,12 +31,19 @@ export default {
         username: 'nraboy',
         password: 'password'
       },
-      products: 'Shoes'
+      products: 'Shoes',
+      ib_voir: false,
+      is_ClientID: ''
     }
   },
   mounted() {
     if (!this.authenticated) {
       this.$router.replace({ name: 'home' })
+    }
+    this.ib_voir = false;
+    this.is_ClientID = this.getCookie('ClientID');
+    if (this.is_ClientID.length >= 4){
+      this.ib_voir = true;
     }
   },
   methods: {
@@ -43,7 +52,23 @@ export default {
     },
     logout() {
       this.authenticated = false;
+    },
+    getCookie(cname) {
+      let name = cname + '=';
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return '';
     }
+
   },
   computed: {
     loggedIn() {
@@ -67,7 +92,7 @@ body {
   height: 100vh;
 }
 #nav {
-  padding: 10px;
+  padding: 5px;
 }
 
 #nav a {

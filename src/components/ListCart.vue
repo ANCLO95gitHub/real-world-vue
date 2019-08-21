@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+  <div  v-if="ib_permission">
     <h1>
     <p>...</p>
     </h1>
@@ -99,61 +100,16 @@
       </table>
     </div>
    <div>
+   </div>
 
-   </div>
-   <div>
-     <button @click="faireAchat">Faire l'Achat</button><br>
-     <button @click="faireAchat2">Faire l'Achat2</button><br>
-   </div>
-a
-   <div>
-     <PayPal :amount="amount"
-             currency="USD"
-             :client="credentials"
-     ></PayPal>
-   </div>
-z<br>
-   a
-   <div>
-
-   </div>
-   z<br>
-abc
    <paypal-simple amount="10.00" currency="USD" :client="credentials"></paypal-simple>
    <paypal-advanced :methods="credentials"></paypal-advanced>
-   <!--
-   <paypal-checkout
-     amount="10.00"
-     currency="CND"
-     :client="credentials"
-     env="sandbox">
-   </paypal-checkout>
-   -->
-xyz
-1243
 
-7809
-    <!--
-    <div id="paypal">
-      <paypal-checkout
-        amount="10.00"
-        currency="CND"
-        :client="paypal"
-        env="sandbox"
-        invoice-number="124356">
-      </paypal-checkout>
-    </div>
- -->
-    <!--
-avant
-<paypal2 :amount="amount"></paypal2>
-apres
-
-<div>
-<PayPal :amount="amount"></PayPal>
-</div>
--->
     <LeFooter msg="Une Entreprise de HOME inc."/>
+    </div>
+      <div  v-if="!ib_permission"  id="vide">
+        <label><h3>Vous devez vous logger avant de voir votre kart. </h3> </label>
+      </div>
   </div>
 </template>
 
@@ -172,7 +128,7 @@ import {bus} from '../main';
 export default {
   name: 'ListCart',
   data() {
-    return { laReponse: '', laReponseParam: '', leLogout: '', kartArray:[], lsMessage: "Pour retirer l'item du Kart", cookieResultat:'vide', laSession: 'zedivz', leTitle: 'vue...', is_ClientID:'', sousTotal: 0.00, laTPS: 0.00, laTVQ: 0.00, leTotal: 0.00,
+    return { ib_permission: false, laReponse: '', laReponseParam: '', leLogout: '', kartArray:[], lsMessage: "Pour retirer l'item du Kart", cookieResultat:'vide', laSession: 'zedivz', leTitle: 'vue...', is_ClientID:'', sousTotal: 0.00, laTPS: 0.00, laTVQ: 0.00, leTotal: 0.00,
       credentials:{
         'sandbox': 'Aa9a_yrXSzcTpuZni8FtQkYvk98vs0oTkfwD2UaCpQ8vaJcGUN2g9xBZZ9sqwfXnFxnXmrSQrd8Qr6IH',
         'production': ''
@@ -305,16 +261,63 @@ export default {
     paymentAuthorized: function (data) {
       console.log( 'paymentAuthorized' );
       console.log(data);
-
+      //alert("IDID=" + IDID);
+      let dataFollow = { "IDID": data };
+      console.log( "dataFollow=" + dataFollow.IDID);
+      axios.post(`${apiServeurmssql}paymentAuthorized/`, dataFollow,
+        {
+          headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type'}
+        }
+      ).then(res => {
+        console.log(' res.status=' + res.status)
+      })
+      //router.push("/");
+      //router.push("/ListCart");
+      //this.getKart();
+      console.log( "FIN paymentCancelled");
 
     },
     paymentCompleted: function (data) {
       console.log( 'paymentCompleted' );
       console.log(data);
+      //alert("IDID=" + IDID);
+      let dataFollow = {
+        "IDID": data,
+        ClientID : this.is_ClientID,
+      };
+      console.log( "dataFollow=" + dataFollow.IDID);
+      axios.post(`${apiServeurmssql}paymentCompleted/`, dataFollow,
+        {
+          headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type'}
+        }
+      ).then(res => {
+        console.log(' res.status=' + res.status)
+      })
+      //router.push("/");
+      //router.push("/ListCart");
+      //this.getKart();
+      console.log( "FIN paymentCompleted");
+
     },
     paymentCancelled: function (data) {
       console.log( 'paymentCancelled' );
       console.log(data);
+
+      //alert("IDID=" + IDID);
+      let dataFollow = { "IDID": data };
+      console.log( "dataFollow=" + dataFollow.IDID);
+      axios.post(`${apiServeurmssql}paymentCancelled/`, dataFollow,
+        {
+          headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type'}
+        }
+      ).then(res => {
+        console.log(' res.status=' + res.status)
+      })
+      //router.push("/");
+      //router.push("/ListCart");
+      //this.getKart();
+      console.log( "FIN paymentCancelled");
+
     },
     faireAchat(){
       alert("Alert: faire du code pour achat:  avec PayPal par exemple.")
@@ -355,6 +358,15 @@ export default {
     console.log('qaz   qaz   this.is_ClientID=', this.is_ClientID );
   },
   mounted(){
+
+    if( this.getCookie('ClientID').length >=4 ) {
+      this.ib_permission = true;
+    }
+    else {
+      this.ib_permission = false;
+    }
+
+
 
     let recaptchaScript = document.createElement('script');
 
