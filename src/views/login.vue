@@ -6,7 +6,10 @@
       <table>
         <tr>
           <td><label>Courriel: </label></td>
-          <td><input type="text" name="Email" v-model="input.Email" placeholder="Courriel, Email" title="Important de respecter le format du courriel"/>abc@def.ghi</td>
+          <td><input type="text" name="Email" id="iEmail" v-model="input.Email" v-on:keyup="if_validerEmail()" placeholder="Courriel, Email" title="Important de respecter le format du courriel"/>abc@def.com
+            <p class="p" id="pEmail">Important de respecter le format du courriel</p>
+          </td>
+
         </tr>
 
         <tr>
@@ -21,7 +24,9 @@
 
         <tr>
           <td><label>Téléphone: </label></td>
-          <td><input type="text" name="phone" v-model="input.phone" placeholder="Téléphone, phone"  title="Important de respecter le format du téléphone" />999-999-9999</td>
+          <td><input type="text" name="phone" id="phone" v-model="input.phone" v-on:keyup="if_validerTelephonel()"  placeholder="Téléphone, phone"  title="Important de respecter le format du téléphone" />999-999-9999
+            <p class="p" id="idTelephone">Important de respecter le format du téléphone</p>
+          </td>
         </tr>
         <tr>
           <td><label>Adresse de livraison</label></td>
@@ -231,6 +236,49 @@ export default {
         }
       }
       return '';
+    },
+    if_validerEmail(){
+      const patterns={
+        telephone: /^\d{10}$/,
+        username: /^[a-z\d]{5,12}$/i,
+        password: /^[\w@-]{8-20}$/,
+        slug: /^[a-z\d-]{8,20}$/,
+        email: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
+        phoneno: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+      };
+      let lb_pattern = patterns["email"].test( this.input.Email );
+      console.log(patterns["email"].test( this.input.Email ));
+      if( lb_pattern ){
+        document.getElementById("iEmail").className = 'classEmail';
+
+      }else{
+        document.getElementById("iEmail").className = '';
+      }
+
+    },
+    if_validerTelephonel(){
+
+      const patterns={
+        telephone: /^\d{10}$/,
+        username: /^[a-z\d]{5,12}$/i,
+        password: /^[\w@-]{8-20}$/,
+        slug: /^[a-z\d-]{8,20}$/,
+        email: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
+        phoneno: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+      };
+      let lb_pattern = patterns["telephone"].test( this.input.phone );
+      console.log(patterns["telephone"].test( this.input.phone ));
+      //si vrai
+      if( lb_pattern ){
+        document.getElementById("phone").className = 'classTelephone';
+        document.getElementById("idTelephone").style.visibility = "hidden";
+      }
+      else{
+        document.getElementById("idTelephone").className = 'p';
+        document.getElementById("phone").className = '';
+        document.getElementById("idTelephone").style.visibility = "visible";
+      }
+
     }
   },
   mounted() {
@@ -291,4 +339,21 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+p{
+  font-family: arial, sans-serif;
+  font-size: 9px;
+}
+.classTelephone{
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  border-style: solid;
+  border-color: #0F0;
+}
+.classEmail{
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  border-style: solid;
+  border-color: #0F0;
+}
+
 </style>

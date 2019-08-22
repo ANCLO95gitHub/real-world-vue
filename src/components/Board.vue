@@ -46,7 +46,7 @@
       </tr>
       </thead>
     </table>
-    <table class="customTable">
+    <table class="maTable">
       <tbody>
       <div v-for="akartArray in kartArray" v-bind:key="akartArray.ID">
         <tr>
@@ -74,9 +74,67 @@
     </table>
     <br><br><br>
     <label>Voici la liste des items annules du Kart de tous les clients.</label>
+    <br>
+    <button @click="getKart_Annuler">Get Kart des items annules de tous les clients</button><br>
+
+    <table class="maTable">
+      <tbody>
+      <div v-for="akartArrayAnnuler in kartArrayAnnuler" v-bind:key="akartArrayAnnuler.ID">
+        <tr>
+          <td width="40px">{{akartArrayAnnuler.ID}}</td>
+          <td width="85px">{{akartArrayAnnuler.clientID}}</td>
+          <td width="200px">{{akartArrayAnnuler.courriel}}</td>
+          <td width="100px">{{akartArrayAnnuler.IDID}}</td>
+          <td width="150px"> {{akartArrayAnnuler.InPurcId_ExPurcId}}</td>
+
+          <td width="90px">{{akartArrayAnnuler.NomMB}}</td>
+          <td width="85px">{{akartArrayAnnuler.NomForme}}</td>
+
+          <td width="75px">{{akartArrayAnnuler.Longueur}}</td>
+          <td width="75px">{{akartArrayAnnuler.Quantity}}</td>
+          <td width="100px">{{akartArrayAnnuler.prix}}</td>
+          <td width="50px">{{akartArrayAnnuler.vendu}}</td>
+          <td v-if="1==2" width="195px">{{akartArrayAnnuler.DateTime}}</td>
+          <td width="75px">
+            <button class="favorite styled" @click="retirerItem(akartArrayAnnuler.IDID)" v-bind:title=lsMessage>Retirer l'Item</button>
+          </td>
+          <td width="40px">{{akartArrayAnnuler.IDID}}</td>
+        </tr>
+      </div>
+      </tbody>
+    </table>
+    <br><br><br>
 ac:ici
+    <label>Voici la liste des items vendus du Kart de tous les clients.</label>
+    <br>
+    <button @click="getKart_Vendus">Get Kart des items vendus de tous les clients</button><br>
+    <table class="maTable">
+      <tbody>
+      <div v-for="akartArrayVendu in kartArrayVendu" v-bind:key="akartArrayVendu.ID">
+        <tr class="monTr">
+          <td width="40px">{{akartArrayVendu.ID}}</td>
+          <td width="85px">{{akartArrayVendu.clientID}}</td>
+          <td width="200px">{{akartArrayVendu.courriel}}</td>
+          <td width="100px">{{akartArrayVendu.IDID}}</td>
+          <td width="150px"> {{akartArrayVendu.InPurcId_ExPurcId}}</td>
 
+          <td width="90px">{{akartArrayVendu.NomMB}}</td>
+          <td width="85px">{{akartArrayVendu.NomForme}}</td>
 
+          <td width="75px">{{akartArrayVendu.Longueur}}</td>
+          <td width="75px">{{akartArrayVendu.Quantity}}</td>
+          <td width="100px">{{akartArrayVendu.prix}}</td>
+          <td width="50px">{{akartArrayVendu.vendu}}</td>
+          <td v-if="1==2" width="195px">{{akartArrayVendu.DateTime}}</td>
+          <td width="75px">
+            <button class="favorite styled" @click="retirerItem(akartArrayVendu.IDID)" v-bind:title=lsMessage>Retirer l'Item</button>
+          </td>
+          <td width="40px">{{akartArrayVendu.IDID}}</td>
+        </tr>
+      </div>
+      </tbody>
+    </table>
+    <br><br><br>
 
 
 
@@ -103,7 +161,7 @@ import {bus} from '../main';
 export default {
   name: 'ListCart',
   data() {
-    return { laReponse: '', laReponseParam: '', leLogout: '', kartArray:[], lsMessage: "Pour retirer l'item du Kart", cookieResultat:'vide', laSession: 'zedivz', leTitle: 'vue...', is_getHome: 'emptry' };
+    return { laReponse: '', laReponseParam: '', leLogout: '', kartArray:[], kartArrayAnnuler:[], kartArrayVendu:[], lsMessage: "Pour retirer l'item du Kart", cookieResultat:'vide', laSession: 'zedivz', leTitle: 'vue...', is_getHome: 'emptry' };
   },
   components: { 'LeFooter':LeFooter },
   methods: {
@@ -128,6 +186,55 @@ export default {
         })
       console.log('FIN getKart() sans arg');
     },
+
+    getKart_Annuler () {
+      console.log('Board.vue DEBUT getKart_Annuler()  sans arg  JE VEUX ICICICICICICICICI');
+      this.is_ClientID = this.getCookie("ClientID");
+      let params = {
+        id : 0,
+      };
+      ///// {params},
+      axios.get(`${apiServeurmssql}getkart_annuler/`,{params},
+        {
+          headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type'}
+        }
+      )
+        .then(res => {
+          // eslint-disable-next-line eqeqeq
+          if (res.data.status === true) {
+            console.log(' res.data.InvenDet=' + res.data.KartMetaux);
+            this.kartArrayAnnuler = res.data.KartMetaux
+            console.log('FIN getKart_Annuler() sans arg');
+          }
+        })
+    },
+
+    getKart_Vendus () {
+
+      console.log('Board.vue DEBUT getKart_Vendus()  sans arg');
+      this.is_ClientID = this.getCookie("ClientID");
+      let params = {
+        id : 0,
+      };
+      ///// {params},
+      axios.get(`${apiServeurmssql}getkart_vendus/`,{params},
+        {
+          headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true, 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE', 'Access-Control-Allow-Headers': 'Content-Type'}
+        }
+      )
+        .then(res => {
+          // eslint-disable-next-line eqeqeq
+          if (res.data.status === true) {
+            console.log(' res.data.InvenDet=' + res.data.KartMetaux);
+            this.kartArrayVendu = res.data.KartMetaux
+            console.log('FIN getKart_Vendus() sans arg');
+          }
+        })
+
+    },
+
+
+
     getWhoAmI(){
       axios.get(`${apiServeurmssql}getWhoAmI`,
         {
@@ -259,7 +366,7 @@ export default {
   },
   async created() {
     console.log('async created() ');
-    this.getKart();
+/////////////////    this.getKart();
     bus.$on("userIdChanged", (data) =>{
       this.is_ClientID = data;
     })
@@ -271,11 +378,12 @@ export default {
 <style scoped>
 .about{
   border-style: double;
-  height: 770px;
+  height: 170px;
   margin: 1px;
   padding: 1px;
   background-color: #95a5a6;
 }
+/*
 table.customTable {
   display: flex;
   width: 100%;
@@ -300,7 +408,28 @@ table.customTable td, table.customTable th {
 table.customTable thead {
   background-color: #7ea8f8;
 }
+*/
+.maTable {
+  display: flex;
+  position: relative;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 40%;
+  margin-left: 10%;
+  //border: 2px solid #000;
+  display: block;
+}
 
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 
+}
+
+.monTr:nth-child(even) {
+  background-color: #dddddd;
+
+}
 
 </style>

@@ -42,9 +42,10 @@ export default {
     }
     this.ib_voir = false;
     this.is_ClientID = this.getCookie('ClientID');
-    if (this.is_ClientID.length >= 4){
+    if (!this.is_ClientID.length >= 4){
       this.ib_voir = true;
     }
+    this.ib_voir = true;
   },
   methods: {
     setAuthenticated(status) {
@@ -102,5 +103,9 @@ body {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+#nav:hover{
+  background-color: #555;
 }
 </style>

@@ -8,7 +8,7 @@
             <label for='uname'><b>Courriel / Email</b></label>
           </td>
           <td>
-            <input type="text" placeholder="..." name="uname" required v-model="is_ClientID" @dblclick="if_ondblclick(1)" @click.ctrl="if_ondblclick(2)">
+            <input type="text" id="iEmail" placeholder="..." name="uname" required v-model="is_ClientID" @dblclick="if_ondblclick(1)" @click.ctrl="if_ondblclick(2)" v-on:keyup="if_validerEmail()">
           </td>
         </tr>
         <tr>
@@ -175,7 +175,30 @@ export default {
       if( condition === 2){
         this.is_ClientID = 'andre.cloutier.4@ulaval.ca';
       }
+    },
+    if_validerEmail(){
+      const patterns={
+        telephone: /^\d{10}$/,
+        username: /^[a-z\d]{5,12}$/i,
+        password: /^[\w@-]{8-20}$/,
+        slug: /^[a-z\d-]{8,20}$/,
+        email: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
+        phoneno: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+      };
+      let lb_pattern = patterns["email"].test( this.is_ClientID );
+      console.log(patterns["email"].test( this.is_ClientID ));
+      if( lb_pattern ){
+        document.getElementById("iEmail").className = 'classEmail';
+        //document.getElementById("pEmail").display = "none";
+        document.getElementById("pEmail").style.visibility = "hidden";
+      }else{
+        document.getElementById("iEmail").className = '';
+        document.getElementById("pEmail").style.visibility = "visible";
+      }
+
     }
+
+
   },
   computed: {
     user() {
@@ -230,8 +253,13 @@ td, th {
   text-align: left;
   padding: 8px;
 }
-
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+.classEmail{
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  border-style: solid;
+  border-color: #0F0;
 }
 </style>
