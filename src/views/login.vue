@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div  v-if="ib_voir"  id="login">
+    <div  v-if="1" id="login">
       <h1>Leclerc Robotique inc.</h1>
       <h3>Créer Compte</h3>
       <table>
         <tr>
-          <td><label>Courriel: </label></td>
+          <td><label>*Courriel: </label></td>
           <td><input type="text" name="Email" id="iEmail" v-model="input.Email" v-on:keyup="if_validerEmail()" placeholder="Courriel, Email" title="Important de respecter le format du courriel"/>abc@def.com
             <p class="p" id="pEmail">Important de respecter le format du courriel</p>
           </td>
@@ -13,35 +13,35 @@
         </tr>
 
         <tr>
-          <td><label title="Minimum de 5 lettres et maximum de 10 lettres.">Mot de passe:</label></td>
+          <td><label title="Minimum de 5 lettres et maximum de 10 lettres.">*Mot de passe:</label></td>
           <td><input type="password" name="pwd" v-model="input.pwd1" title="Minimum de 4 lettres et maximum de 10 lettres."/></td>
         </tr>
 
         <tr>
-          <td><label title="Minimum de 5 lettres et maximum de 10 lettres.">Confirmer: Mot de passe:</label></td>
+          <td><label title="Minimum de 5 lettres et maximum de 10 lettres.">*Confirmer: Mot de passe:</label></td>
           <td><input type="password" name="pwd2" v-model="input.pwd2" title="Minimum de 4 lettres et maximum de 10 lettres."/></td>
         </tr>
 
         <tr>
-          <td><label>Téléphone: </label></td>
+          <td><label>*Téléphone: </label></td>
           <td><input type="text" name="phone" id="phone" v-model="input.phone" v-on:keyup="if_validerTelephonel()"  placeholder="Téléphone, phone"  title="Important de respecter le format du téléphone" />999-999-9999
             <p class="p" id="idTelephone">Important de respecter le format du téléphone</p>
           </td>
         </tr>
         <tr>
-          <td><label>Adresse de livraison</label></td>
+          <td><label>*Adresse de livraison</label></td>
           <td></td>
         </tr>
         <tr>
-          <td><label>Civic: </label></td>
+          <td><label>*Civic: </label></td>
           <td><input type="text" name="address" v-model="input.address" placeholder="adresse, address"  title="numéro civic + nom de la rue" /></td>
         </tr>
         <tr>
-          <td><label>Ville: </label></td>
+          <td><label>*Ville: </label></td>
           <td><input type="text" name="city" v-model="input.city" placeholder="Ville, City" /></td>
         </tr>
         <tr>
-          <td><label>Code Postal: </label></td>
+          <td><label>*Code Postal: </label></td>
           <td> <input type="text" name="postalcode" v-model="input.postalcode" placeholder="Code Postal, Postal Code" title="Important de respecter le format du Code Postal" @dblclick="if_ondblclick(1)"/>G1G 1G1</td>
         </tr>
         <tr>
@@ -305,6 +305,7 @@ export default {
 </script>
 
 <style scoped>
+
 #login {
   width: 500px;
   border: 3px solid #cccccc;

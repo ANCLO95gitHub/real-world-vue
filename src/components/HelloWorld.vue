@@ -34,13 +34,15 @@
 
    </div>
     <div v-if="ib_permission">
+      <!--
       <button type="submit" v-on:click="setLogout">Logout</button>
+      -->
       <h5>[{{is_ClientID}}]</h5>
     </div>
       <!--    <LeHeader />    -->
-    <div v-if="ib_permission">
+    <div v-if="ib_permission"></div>
       <ListeInventaire msg='' v-bind:bindLaSession="vlaSession" v-bind:bindClientID="is_ClientID" v-on:changeTitle="updateTitle($event)" />
-    </div>
+
     <!-- ac: ceci s affichera en bas de la page web -->
   </div>
 </template>
@@ -217,8 +219,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.hello{
+  font-family: Verdana;
+  font-size: 11px;
+}
 h2 {
   margin: 10px 0 0;
+  font-family: Verdana;
 }
 h3 {
   margin: 20px 0 0;
@@ -238,7 +245,7 @@ a {
   color: #42b983;
 }
 input{
-  width: 200px;
+  width: 250px;
 }
 table {
   position: relative;
@@ -249,7 +256,7 @@ table {
 }
 
 td, th {
-  border: 1px solid #dddddd;
+  border: 0px solid #dddddd;
   text-align: left;
   padding: 8px;
 }

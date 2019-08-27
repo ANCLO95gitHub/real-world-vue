@@ -1,70 +1,107 @@
 <template>
   <div class="enLigne">
     <h4 v-on:click="changeTitle">{{bindLaSession}}</h4>
-    <button @click="changeTitle">{{msg}}</button>
     <h5>{{ msg }}</h5>
 
     <!-- ---->
-    <div id="checkboxes">
+    <!-- ---->
+    <!-- ---->
+    <!-- ---->
+    <div class="container">
+    <div id="menuGauche">
       <section>
         <h4>(1ere étape) Choisir la matière et sa forme</h4>
         <table class="customTable">
           <thead>
           <tr>
             <th style="background-color: yellow;">Acier</th>
-            <th style="background-color: #1565c0;">Aluminium</th>
-            <th style="background-color: green;">Stainless Steel</th>
           </tr>
           </thead>
           <tbody>
           <tr>
             <td><input type="radio" id="one" value="ACAN" v-model="picked" @change="changeValue"/><label for="one">Angle</label></td>
-            <td><input type="radio" id="two" value="ALAN" v-model="picked" @change="changeValue"/><label for="two">ANGLE</label></td>
-            <td><input type="radio" id="three" value="SSAN" v-model="picked" @change="changeValue"/><label for="three">Angle</label></td>
           </tr>
           <tr>
             <td><input type="radio" id="four" value="ACBC" v-model="picked" @change="changeValue"/><label for="four">BARRE CARRÉE</label></td>
-            <td><input type="radio" id="five" value="ALBC" v-model="picked" @change="changeValue"/><label for="five">BARRE CARRÉE</label></td>
-            <td><input type="radio" id="six" value="SSBC" v-model="picked" @change="changeValue"/><label for="six">BARRE CARRÉE</label></td>
           </tr>
           <tr>
             <td><input type="radio" id="seven" value="ACBR" v-model="picked" @change="changeValue"/><label for="seven">BARRE RONDE</label></td>
-            <td><input type="radio" id="eight" value="ALBR" v-model="picked" @change="changeValue"/><label for="eight">BARRE RONDE</label></td>
-            <td><input type="radio" id="nine" value="SSBR" v-model="picked" @change="changeValue"/><label for="nine">BARRE RONDE</label></td>
           </tr>
-          <!--
-          <tr>
 
-            <td><input type="radio" id="ten" value="ACPL" v-model="picked" @change="changeValue"/><label for="ten">Plat</label></td>
-            <td><input type="radio" id="eleven" value="ALPL" v-model="picked" @change="changeValue"/><label for="eleven">Plat</label></td>
-            <td><input type="radio" id="twelve" value="SSPL" v-model="picked" @change="changeValue"/><label for="twelve">Plat</label></td>
-          </tr>
-          -->
           <tr>
-
             <td><input type="radio" id="thirteen" value="ACPU" v-model="picked" @change="changeValue"/><label for="thirteen">POUTRE EN U</label></td>
-            <td><input type="radio" id="fourteen" value="ALPU" v-model="picked" @change="changeValue"/><label for="fourteen">POUTRE EN U</label></td>
-            <td><input type="radio" id="fifteen" value="SSPU" v-model="picked" @change="changeValue"/><label for="fifteen">_</label></td>
           </tr>
           <tr>
 
             <td><input type="radio" id="sixteen" value="ACTU" v-model="picked" @change="changeValue"/><label for="sixteen">Tube</label></td>
-            <td><input type="radio" id="seventeen" value="ALTU" v-model="picked" @change="changeValue"/><label for="seventeen">TUBE</label></td>
-            <td><input type="radio" id="eighteen" value="SSTU" v-model="picked" @change="changeValue"/><label for="eighteen">TUBE</label></td>
+
           </tr>
           <tr>
             <td><input type="radio" id="nineteen" value="ACTUY" v-model="picked" @change="changeValue"/><label for="nineteen">TUYAU</label></td>
+          </tr>
+
+          <tr>
+            <th style="background-color: #1565c0;">Aluminium</th>
+          </tr>
+          <tr>
+            <td><input type="radio" id="two" value="ALAN" v-model="picked" @change="changeValue"/><label for="two">ANGLE</label></td>
+          </tr>
+          <tr>
+            <td><input type="radio" id="five" value="ALBC" v-model="picked" @change="changeValue"/><label for="five">BARRE CARRÉE</label></td>
+          </tr>
+          <tr>
+            <td><input type="radio" id="eight" value="ALBR" v-model="picked" @change="changeValue"/><label for="eight">BARRE RONDE</label></td>
+          </tr>
+          <tr>
+            <td><input type="radio" id="fourteen" value="ALPU" v-model="picked" @change="changeValue"/><label for="fourteen">POUTRE EN U</label></td>
+          </tr>
+          <tr>
+            <td><input type="radio" id="seventeen" value="ALTU" v-model="picked" @change="changeValue"/><label for="seventeen">TUBE</label></td>
+          </tr>
+          <tr>
             <td><input type="radio" id="twenty" value="ALTUY" v-model="picked" @change="changeValue"/><label for="twenty">TUYAU</label></td>
+          </tr>
+
+
+          <tr>
+            <th style="background-color: green;">Stainless Steel</th>
+          </tr>
+          <tr>
+            <td><input type="radio" id="three" value="SSAN" v-model="picked" @change="changeValue"/><label for="three">Angle</label></td>
+          </tr>
+          <tr>
+            <td><input type="radio" id="six" value="SSBC" v-model="picked" @change="changeValue"/><label for="six">BARRE CARRÉE</label></td>
+          </tr>
+          <tr>
+            <td><input type="radio" id="nine" value="SSBR" v-model="picked" @change="changeValue"/><label for="nine">BARRE RONDE</label></td>
+          </tr>
+          <tr>
+            <td><input type="radio" id="eighteen" value="SSTU" v-model="picked" @change="changeValue"/><label for="eighteen">TUBE</label></td>
+          </tr>
+          <tr>
             <td><input type="radio" id="twentyone" value="SSTUY" v-model="picked" @change="changeValue"/><label for="twentyone">TUYAU</label></td>
+          </tr>
+
+          <tr>
           </tr>
           </tbody>
         </table>
         <span>value: {{picked}}</span>
       </section>
     </div>
+    <!-- ---->
+    <!-- ---->
+    <!-- ---->
 
     <!-- ---->
-    <TitleInventaire :place_holder="well"></TitleInventaire>
+    <div class="flex-item">
+      <TitleInventaire :place_holder="well"></TitleInventaire>
+
+      <div class="flex-item" v-for="InvenDet in InventDisplay" v-bind:key="InvenDet.ID">
+        <InventaireAVendre :place_holder="InvenDet" v-bind:bindClientID="bindClientID"></InventaireAVendre>
+      </div>
+    </div>
+  </div>
     <!--
         <ul class="enLigne">
           <li v-for="InvenDet in InvenDets" v-bind:key="InvenDet.ID">
@@ -79,14 +116,14 @@
       </li>
     </ul>
     -->
-
+    <div v-if="0">
     <ul class="enLigne">
     <div v-for="InvenDet in InventDisplay" v-bind:key="InvenDet.ID">
-      <InventaireAVendre :place_holder="InvenDet" v-bind:bindClientID="bindClientID"></InventaireAVendre>
+      <InventaireAVendre_v2 :place_holder="InvenDet" v-bind:bindClientID="bindClientID"></InventaireAVendre_v2>
     </div>
     </ul>
+    </div>
 
-    <br>
 
   </div>
 </template>
@@ -94,6 +131,7 @@
 <script>
 import TitleInventaire from '../components/TitleInventaire.vue'
 import InventaireAVendre from '../components/InventaireAVendre.vue'
+import InventaireAVendre_v2 from '../components/InventaireAVendre_v2.vue'
 // import {loginUrl} from '../../views/config'
 /* eslint-disable */
 // C:\nodejs\metalCart\src\components
@@ -102,7 +140,7 @@ import {apiServeurmssql} from '../../src/views/config.js';
 
   export default {
   name: 'ListeInventaire',
-  components:{ TitleInventaire, InventaireAVendre },
+  components:{ TitleInventaire, InventaireAVendre, InventaireAVendre_v2 },
   data () {
     return {
       well: 'Welcome to Your Vue.js App', InvenDets: [], InventDisplay: [], picked: 'ACAN', lesParams: '', formData: {InPurcId_ExPurcId : 'a', checked: false, checked2: false, What: 'What', selectedUser: '', laSession: 'videur' }
@@ -268,7 +306,7 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
-  border: 1px solid blue;
+  border: 0px solid blue;
 }
 a {
   color: #42b983;
@@ -277,7 +315,7 @@ a {
   display: flex;
   display: grid;
   margin: 0 0px;
-  border: 3px solid green;
+  border: 0px solid green;
   margin: 0px;
 }
 .enColonne{
@@ -324,27 +362,27 @@ table.GeneratedTable {
 }
 
 table.GeneratedTable td, table.GeneratedTable th {
-  border-width: 2px;
+  border-width: 1px;
   border-color: #ffcc00;
   border-style: solid;
-  padding: 3px;
+  padding: 1px;
 }
 
 table.GeneratedTable thead {
   background-color: #ffcc00;
 }
 table.customTable {
-  width: 100%;
+  width: 175px;
   background-color: #FFFFFF;
   border-collapse: collapse;
-  border-width: 5px;
+  border-width: 1px;
   border-color: #A9B1F8;
   border-style: groove;
   color: #000000;
 }
 
 table.customTable td, table.customTable th {
-  border-width: 5px;
+  border-width: 1px;
   border-color: #A9B1F8;
   border-style: groove;
   padding: 5px;
@@ -352,5 +390,17 @@ table.customTable td, table.customTable th {
 
 table.customTable thead {
   background-color: #CCCCCC;
+}
+#menuGauche{
+  width: 400px;
+  font-family: Verdana;
+  font-size: 11px;
+}
+.container{
+  display: flex;
+  height: 650px;
+}
+.flex-item{
+  flex-grow: 1;
 }
 </style>

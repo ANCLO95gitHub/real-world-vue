@@ -1,17 +1,19 @@
 <template>
   <div>
-    {{rien}}
-    <div class="float_right">
-      <!--
-      <span>
-        <input class="search-input" type="text" :place_holder=''>
-      </span>
+    <!--
+        {{rien}}
+<div class="float_right">
 
-      <span>
-        <button class="btn waves-effect waves-light blue darken-3" id="btn_search" type="submit">Rechercher</button>
-      </span>
-            -->
-    </div>
+<span>
+  <input class="search-input" type="text" :place_holder=''>
+</span>
+
+<span>
+  <button class="btn waves-effect waves-light blue darken-3" id="btn_search" type="submit">Rechercher</button>
+</span>
+
+</div>
+-->
 
     <h1 v-if="1==2">1</h1>
     <table class="customTable">
@@ -20,20 +22,20 @@
           <th width='55px' title='Image à titre informatif seulement'>Image</th>
           <th width="200px">Dimension et Description de l'item</th>
           <th width="50px">ID</th>
-          <th width="60px">Prix de l'Item</th>
+          <th width="60px">Prix de l'Item $</th>
           <th width="90px" title="Calcul du poids à définir...">Longueur et Poids (lbs.)</th>
           <th width="50px">
             Forme
           </th>
-          <th width="107px" title="Inscrivez votre longueur en pouces">Cliquer la flèche<br>
-            ou inscrivez la longueur</th>
-          <th width="75px">Quantité</th>
-          <th width="75px">Prix</th>
-          <th>à déplacer dans le kart</th>
+          <th width="107px" title="Inscrivez votre longueur en pouces">Longueur</th>
+          <th width="75px"  title="Inscrivez votre quantité">Quantité</th>
+          <th width="75px"  title="Nouveau prix">Prix</th>
+          <th width="75px" >à déplacer dans le kart</th>
           <th width="107px"> Stock Number</th>
         </tr>
       </thead>
     </table>
+
   </div>
 </template>
 
@@ -79,24 +81,26 @@ export default {
   }
 
   table.customTable {
-    width: 100%;
+    width: 75%;
     background-color: #FFFFFF;
     border-collapse: collapse;
-    border-width: 5px;
+    border-width: 1px;
     border-color: #A9B1F8;
     border-style: groove;
     color: #000000;
     table-layout: fixed;
+    font-family: Verdana;
+    font-size: 11px;
   }
 
   table.customTable td, table.customTable th {
-    border-width: 5px;
+    border-width: 1px;
     border-color: #A9B1F8;
     border-style: groove;
     padding: 5px;
   }
 
   table.customTable thead {
-    background-color: #95a5a6;
+    background-color: white;
   }
 </style>

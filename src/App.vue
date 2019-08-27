@@ -2,15 +2,18 @@
   <div id="app">
     <div id="nav">
       <nav>
-        <router-link to="/" exact>Portail</router-link> |
-        <div v-if="!loggedIn">
+        <router-link style="color: #f2f2f2" to="/" exact><label>Portail   </label></router-link>
           <span v-if="ib_voir" class="container">
-            <router-link to="/login">Créer Compte</router-link> |
+            <label>&nbsp;  &nbsp; &nbsp;&nbsp;</label>
+            <router-link to="/login"  ><label>   Créer Compte </label></router-link>
           </span>
-          <router-link to="/ListCart" exact>ListCart</router-link> |
-          <router-link to="/about">Au sujet de</router-link> |
-          <router-link to="/logout">Sortir</router-link>
-        </div>
+        <label>&nbsp;  &nbsp; &nbsp;&nbsp;</label>
+          <router-link to="/ListCart" exact><label> ListCart </label></router-link>
+        <img alt="Vue logo" src="../src/assets/MyCart.png" />
+        <label>&nbsp;  &nbsp; &nbsp;&nbsp;</label>
+          <router-link to="/about"><label> Au sujet de   </label></router-link>
+        <label>&nbsp;  &nbsp; &nbsp;&nbsp;</label>
+          <router-link to="/logout"><label> Sortir</label></router-link>
         <div></div>
       </nav>
 
@@ -79,7 +82,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 body {
   background-color: #f0f0f0;
 }
@@ -93,19 +96,38 @@ body {
   height: 100vh;
 }
 #nav {
+  font-family: Verdana;
   padding: 5px;
+  background:red;
+  color: #f2f2f2;
+  text-decoration:none;
+  visited:#f2f2f2;
+  height: 25px;
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #f2f2f2;
+  visited:#f2f2f2;
 }
 
 #nav a.router-link-exact-active {
   color: #42b983;
+  visited:#f2f2f2;
 }
 
 #nav:hover{
-  background-color: #555;
+  background-color: red;
+}
+#nav:visited {
+  color: green;
+}
+router-link{
+  color: #f2f2f2;
+  text-decoration:none;
+  visited:#f2f2f2;
+}
+label{
+  color: #f2f2f2;
 }
 </style>

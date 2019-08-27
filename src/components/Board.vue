@@ -1,26 +1,10 @@
 <template>
   <div class="about">
-    Dans ListCart
+    Dans le Tableau de Bord
     <h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ali...</p>
+      <p>Pour l'administrateur de ce site web.</p>
     </h1>
-    leTitle={{leTitle}}<br>
-    <button @click="getHome">The getHome</button>
-    <label>{{is_getHome}}</label>
-    <br>
 
-    <button @click="getCookieResultat">The Cookie</button>
-    <label>{{cookieResultat}}</label><br>
-    <label>{{laSession}}</label>
-    <br><br>
-    <button @click="pipeMsSQLtoMongo">pipeMsSQLtoMongo</button>
-    <br><br>
-    <button @click="getWhoAmI">getWhoAmI</button>
-    {{laReponse}}<br><br>
-    <button @click="setWhoAmI">setWhoAmI</button>
-    {{laReponseParam}}<br><br>
-    <button @click="setLogout">setLogout</button><br>
-    {{leLogout}}
     <button @click="getKart">Get Kart</button><br>
 
     <label>Voici la liste des items dans les karts des clients.</label>
@@ -135,16 +119,33 @@ ac:ici
       </tbody>
     </table>
     <br><br><br>
+    <br><br><br>
+    <br><br><br>
 
+    <div v-if="0">
+      <button @click="getHome">The getHome</button>
+      <label>{{is_getHome}}</label>
+      <br>
 
-
-    <p>
-      {{msg}}
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>
-    </p>
-
+      <button @click="getCookieResultat">The Cookie</button>
+      <label>{{cookieResultat}}</label><br>
+      <label>{{laSession}}</label>
+      <br><br>
+      <button @click="pipeMsSQLtoMongo">pipeMsSQLtoMongo</button>
+      <br><br>
+      <button @click="getWhoAmI">getWhoAmI</button>
+      {{laReponse}}<br><br>
+      <button @click="setWhoAmI">setWhoAmI</button>
+      {{laReponseParam}}<br><br>
+      <button @click="setLogout">setLogout</button><br>
+      {{leLogout}}
+      <p>
+        {{msg}}
+        For a guide and recipes on how to configure / customize this project,<br />
+        check out the
+        <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>
+      </p>
+    </div>
 
     <LeFooter msg="Une Entreprise de LR Robotique"/>
   </div>
@@ -378,7 +379,7 @@ export default {
 <style scoped>
 .about{
   border-style: double;
-  height: 170px;
+  height: 100px;
   margin: 1px;
   padding: 1px;
   background-color: #95a5a6;

@@ -1,31 +1,30 @@
 <template>
-  <div class="list">
+  <div>
     <table class="customTable">
-      <tbody>
+
         <tr>
-          <td class="cimg" >
+          <td id="td1" >
             <img :src="getPic(place_holder.DiminutifMB, place_holder.DiminutifForme)" alt=".."/>
           </td>
-          <td width="200px">
+          <td id="td2" >
             {{ place_holder.DescriptionCourte }}<br />{{
             place_holder.DescriptionLongue
             }}
           </td>
 
-          <td v-if="place_holder.ID>0" width="50px" >
-            {{place_holder.ID}} blable
+          <td id="td3" >
+            {{place_holder.ID}}
           </td>
-          <td v-else width="50px" >elbalb</td>
 
-          <td v-if="place_holder.ID>0" width="60px">
-            {{place_holder.Montant}}$
-          </td>
-          <td v-else width="60px" style="border:0px;"></td>
 
-          <td v-if="place_holder.ID>0" width="90px">
-            <label>{{place_holder.OptionZ}}" <br>  </label>
+          <td id="td4">
+            {{place_holder.Montant}}
           </td>
-          <td v-else width="90px" style="border:0px;"></td>
+
+
+          <td id="td5">
+            <label>{{place_holder.OptionZ}}" zaq</label>
+          </td>
 
           <td v-if="place_holder.ID>0" width="50px">
             <label  style="min-width:110px;max-width:110px;border: 1px solid grey" for="place_holder.NomForme">
@@ -72,7 +71,7 @@
           </td>
           <td v-else width="17px" style="border:0px;"></td>
       </tr>
-      </tbody>
+
     </table>
   </div>
 </template>
@@ -192,46 +191,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import "../styles/typography.scss";
-@import "../styles/color.scss";
+<style scoped>
 
-.list {
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 57px;
-  .track {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    min-height: 50px;
-    text-indent: 30px;
-    border: 1px solid red;
-    border-bottom: 1px solid $main-color;
-    justify-content: space-between;
-    span {
-      width: 390px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    &:nth-of-type(even) {
-      background-color: $main-color;
-      span {
-        color: $secondary-color;
-      }
-    }
-    &:nth-of-type(odd) {
-      background-color: white;
-      span {
-        color: $main-color;
-      }
-    }
-    .button {
-      margin-right: 5px;
-    }
-  }
-}
 .styled {
   font-family: Verdana;
   border: 1px;
@@ -262,27 +223,50 @@ export default {
     inset 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
-table.customTable {
-  width: 77%;
+.customTable {
+  width: 100%;
   background-color: #FFFFFF;
   border-collapse: collapse;
-  border-width: 0px;
+  border-width: 10px;
   border-color: #A9B1F8;
   border-style: groove;
   color: #000000;
   font-family: Verdana;
   font-size: 11px;
 }
-
-table.customTable td{
+.customTable tr {
+  border-width: 1px;
+  border-color: #A9B1F8;
+  border-style: groove;
+  padding: 0px;
+  margin: 0px;
+  align: center;
+}
+.customTable td {
   border-width: 0px;
   border-color: #A9B1F8;
   border-style: groove;
   padding: 0px;
+  margin: 0px;
   align: left;
-  position: center;
 }
+#td1{
+  width: 55px;
 
+}
+#td2{
+  width: 200px;
+
+}
+#td3{
+  width: 50px;
+}
+td4{
+  width: 60px;
+}
+td5{
+  width: 90px;
+}
 
 #idLongueur{
   width: 69px;
@@ -305,14 +289,14 @@ table.customTable td{
 
 }
 img{
-  height: 50px;
+  height: 45px;
   width: 50px;
   max-width: 50px;
-  max-height: 50px;
+  max-height: 45px;
   border-style: none;
   border-width: 0px;
   border-style: groove;
-  left: 250px;
+
 }
 
 .cimg{
@@ -322,9 +306,5 @@ img{
   min-height: 50px;
   left: 190px;
   position: absolute;
-
-
 }
-
-
 </style>

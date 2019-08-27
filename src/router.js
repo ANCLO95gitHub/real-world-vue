@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/login.vue'
+import Logout from './components/logout.vue'
 import TheAdmin from './components/TheAdmin.vue';
 import TheAdmin2 from '@/components/TheAdmin2.vue';
 import ListCart from './components/ListCart.vue';
@@ -49,6 +50,10 @@ export default new Router({
     { path: "/login",
       name: "login",
       component: Login
+    },
+    { path: "/logout",
+      name: "logout",
+      component: Logout
     },
     { path: "/auth/google",
       name: "leDivers",

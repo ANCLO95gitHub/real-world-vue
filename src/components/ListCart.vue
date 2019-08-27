@@ -1,12 +1,11 @@
 <template>
   <div class="app">
-  <div  v-if="ib_permission">
-    <h1>
-    <p>...</p>
-    </h1>
-    <button @click="getKart">Get Kart</button><br>
+  <div v-if="1">
 
+    <button @click="getKart">Get Kart (Rafraichir)</button><br>
+    <img alt="Vue logo" src="../../public/assets/MyCart.png" />
     <label>Voici la liste de vos items.</label>
+    <img alt="Vue logo" src="../../public/assets/MyCart.png" />
     <table class="customTable">
       <thead>
         <tr>
@@ -60,7 +59,7 @@
      </tbody>
    </table>
 
-    <div>
+    <div v-if="ib_permission">
       <table class="maTable">
         <tr class="monTr">
           <td> <label>Sous-Total = </label></td>
@@ -108,7 +107,7 @@
     <LeFooter msg="Une Entreprise de HOME inc."/>
     </div>
       <div  v-if="!ib_permission"  id="vide">
-        <label><h3>Vous devez vous logger avant de voir votre kart. </h3> </label>
+        <label><h3>Vous devez vous logger avant de pouvoir faire un achat . </h3> </label>
       </div>
   </div>
 </template>
@@ -125,6 +124,7 @@ import PayPalCheckout from './PayPalCheckout.vue';
 import {bus} from '../main';
 //        sandbox: 'Aa9a_yrXSzcTpuZni8FtQkYvk98vs0oTkfwD2UaCpQ8vaJcGUN2g9xBZZ9sqwfXnFxnXmrSQrd8Qr6IH',
 //         production: 'EL3O6sJe0CgtMZszBgigMEu1Ja6qXi_OxfscVHTq7--Im8p01ADMaX3S5ChI_szixchfHx4tw9Xm4F-K'
+//                      7xfbr2npbjfhvw4k$2c2dede9aaadcad005c028ab32a1c088​
 export default {
   name: 'ListCart',
   data() {
@@ -139,13 +139,6 @@ export default {
   methods: {
     getKart () {
       console.log('DEBUT getKart()  AVEC arg cookie=' + this.getCookie("ClientID") );
-      //'x-access-token': localStorage.getItem('token'),
-      // http://localhost:1337/getkart/
-      // https://serveurmssql.azurewebsites.net/
-      // {params: { id: this.leLogout }},
-      //axios.get(`https://serveurmssql.azurewebsites.net/getkart/`,
-      //axios.get(`http://localhost:1337/getkart/`,
-    //alert( "loginUrl=" + apiServeurmssql )
       this.is_ClientID = this.getCookie("ClientID");
       console.log('=>this.is_ClientID', this.is_ClientID )
       let params = {
@@ -237,7 +230,6 @@ export default {
     },
 
     changeTitle(){
-      //alert('changeTitle(){');
       //this.$emit('changeTitle', 'Vue Wizard');
       this.leTitle = 'Vue sorcierette'
       console.log( this.leTitle );
@@ -368,6 +360,7 @@ export default {
 
 
 
+
     let recaptchaScript = document.createElement('script');
 
     recaptchaScript.setAttribute('src','https://unpkg.com/vue');
@@ -423,14 +416,16 @@ table.customTable {
   align-items: center;
   background-color: lavender;
   border-collapse: collapse;
-  border-width: 5px;
+  border-width: 1px;
   border-color: #A9B1F8;
   border-style: groove;
   color: #000000;
+  font-family: Verdana;
+  font-size: 11px;
 }
 
 table.customTable td, table.customTable th {
-  border-width: 5px;
+  border-width: 1px;
   border-color: #A9B1F8;
   border-style: groove;
   padding: 1px;
@@ -445,6 +440,8 @@ table.customTable thead {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 20%;
+  font-family: Verdana;
+  font-size: 11px;
 }
 
 td, th {
