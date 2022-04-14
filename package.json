@@ -12,7 +12,7 @@
   "description": "real-world-vue TO BE CHANGED",
   "author": "AndrE Cloutier <andrec@leclercrobotique.com>",
   "dependencies": {
-    "async": "^2.6.2",
+    "async": "^3.2.2",
     "auth0-js": "^9.11.3",
     "axios": "^0.19.0",
     "connect-multiparty": "^2.2.0",
